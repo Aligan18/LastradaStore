@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "dev-admin": "npm --prefix Admin run dev"
+  }
+}

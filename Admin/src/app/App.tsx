@@ -1,5 +1,12 @@
+import { StoreProvider } from "./providers";
+import { PurchasePage } from "@pages";
+
 function App() {
-  return <div></div>;
+  return (
+    <StoreProvider>
+      <PurchasePage />
+    </StoreProvider>
+  );
 }
 
 export default App;

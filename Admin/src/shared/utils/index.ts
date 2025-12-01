@@ -1,1 +1,1 @@
-export { apiAdapter } from "./api/apiAdapter";
+export { apiAdapter } from "./api/apiAdapter"

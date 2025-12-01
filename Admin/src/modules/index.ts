@@ -1,1 +1,1 @@
-export { productApi } from "./product";
+export { productApi } from "./product"

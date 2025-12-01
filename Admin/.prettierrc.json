@@ -1,0 +1,26 @@
+{
+	"trailingComma": "all",
+	"bracketSameLine": true,
+	"bracketSpacing": true,
+	"singleQuote": false,
+	"jsxSingleQuote": false,
+	"arrowParens": "always",
+	"tabWidth": 2,
+	"useTabs": true,
+	"semi": false,
+	"printWidth": 100,
+	"endOfLine": "auto",
+	"importOrder": [
+		"^[./]",
+		"^app/(.*)$",
+		"^pages/(.*)$",
+		"^widgets/(.*)$",
+		"^modules/(.*)$",
+		"^components/(.*)$",
+		"^shared/(.*)$"
+	],
+	"importOrderSeparation": true,
+	"importOrderSortSpecifiers": true,
+	"insertPragma": false,
+	"requirePragma": false
+}

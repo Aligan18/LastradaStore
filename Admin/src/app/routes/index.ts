@@ -1,1 +1,2 @@
-export { menuItems, routeItems } from "./routeItems";
+export { routeItems } from "./routeItems";
+export { menuItems } from "./menuItems";

@@ -1,3 +1,3 @@
 export const enum ReducerPath {
-	PRODUCT = "product",
+  PRODUCT = "product",
 }

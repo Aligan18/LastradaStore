@@ -5,5 +5,5 @@ import type { ReactNode } from "react"
 type StoreProviderProps = { children: ReactNode }
 
 export const StoreProvider = ({ children }: StoreProviderProps) => {
-	return <Provider store={store}>{children}</Provider>
+  return <Provider store={store}>{children}</Provider>
 }

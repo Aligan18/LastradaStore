@@ -41,9 +41,7 @@ export const AddPurchaseModal = () => {
 
   const isCreateProductTab = productTab === ProductTabs.CREATE_PRODUCT
 
-  const handleSubmit = (formData: FormItems) => {
-    console.log(formData)
-  }
+  const handleSubmit = (formData: FormItems) => {}
 
   const handleChangeProductTab = (key: ProductTabs) => {
     if (key === ProductTabs.CREATE_PRODUCT) {

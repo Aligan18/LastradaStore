@@ -7,7 +7,6 @@ export type ColFormItemProps<T> = ComponentProps<typeof Item<T>> & {
   input: ReactNode
   groupName?: string
   colProps?: ColProps
-  name: keyof T
 }
 
 export const ColFormItem = <T,>({

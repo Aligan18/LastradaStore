@@ -23,6 +23,7 @@ export const GridForm = <T,>({ grid, groupName, inputs }: GridFormProps<T>) => {
           groupName={groupName}
           colProps={col}
           {...inputs[col.name]}
+          name={col.name}
         />
       ))}
     </Row>

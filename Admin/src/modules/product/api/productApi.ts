@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react"
 import { ReducerPath } from "@shared"
-import { baseQueryWithAdapter } from "src/shared/utils"
+import { baseQueryWithAdapter } from "@shared"
 
 export const productApi = createApi({
   reducerPath: ReducerPath.PRODUCT,

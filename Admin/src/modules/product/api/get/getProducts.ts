@@ -4,7 +4,7 @@ import type { Product } from "../types"
 
 const getProducts = productApi.injectEndpoints({
   endpoints: (build) => ({
-    getProducts: build.query<Product, void>({
+    getProducts: build.query<Product[], void>({
       query: () => ({
         table: Tables.PRODUCTS,
         method: Methods.GET_ALL,

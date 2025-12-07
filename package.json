@@ -1,5 +1,12 @@
 {
+  "type": "module",
   "scripts": {
-    "dev-admin": "npm --prefix Admin run dev"
+    "dev-admin": "npm --prefix Admin run dev",
+    "gen:types": "npx dotenv -e .env -- sh -c 'npx supabase gen types typescript --project-id ${SUPABASE_PROJECT_REF} --schema public > supabase.types.ts && node scripts/copy-types.js'"
+
+  },
+  "devDependencies": {
+    "dotenv-cli": "^11.0.0",
+    "supabase": "^2.65.6"
   }
 }

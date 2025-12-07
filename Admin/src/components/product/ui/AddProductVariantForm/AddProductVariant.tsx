@@ -6,9 +6,13 @@ type FieldType = {
   color_id: string
 }
 
+export type AddProductVariantProps = {
+  withGroupName?: boolean
+}
+
 const formRows: FormRowAndCol<FieldType>[] = [
   {
-    gutter: 8,
+    gutter: 20,
     cols: [
       { span: 12, name: "size" },
       { span: 12, name: "color_id" },
@@ -19,19 +23,17 @@ const formRows: FormRowAndCol<FieldType>[] = [
 const inputs: FormInputs<FieldType> = {
   size: {
     label: "Размер",
-    name: "size",
     rules: [{ required: true }],
     input: <Input />,
   },
   color_id: {
     label: "Цвет",
-    name: "color_id",
     rules: [{ required: true }],
     input: <Input />,
   },
 }
 
-export const AddProductVariant = ({ withGroupName = false }) => {
+export const AddProductVariant = ({ withGroupName = false }: AddProductVariantProps) => {
   const groupName = withGroupName ? "product_variants" : ""
   return <GridForm<FieldType> inputs={inputs} grid={formRows} groupName={groupName} />
 }

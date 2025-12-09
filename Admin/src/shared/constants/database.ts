@@ -4,4 +4,5 @@ export const enum Tables {
   COLORS = "colors",
   USERS = "users",
   ORDERS = "orders",
+  PURCHASES = "purchases",
 }

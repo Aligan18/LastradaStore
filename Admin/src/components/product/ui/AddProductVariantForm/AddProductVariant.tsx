@@ -1,16 +1,16 @@
 import { GridForm, type FormInputs, type FormRowAndCol, type Size } from "@shared"
 import { Input } from "antd"
 
-type FieldType = {
+export type AddProductVariantsFormItems = {
   size: Size
-  color_id: string
+  color_id: number
 }
 
 export type AddProductVariantProps = {
   withGroupName?: boolean
 }
 
-const formRows: FormRowAndCol<FieldType>[] = [
+const formRows: FormRowAndCol<AddProductVariantsFormItems>[] = [
   {
     gutter: 20,
     cols: [
@@ -20,7 +20,7 @@ const formRows: FormRowAndCol<FieldType>[] = [
   },
 ]
 
-const inputs: FormInputs<FieldType> = {
+const inputs: FormInputs<AddProductVariantsFormItems> = {
   size: {
     label: "Размер",
     rules: [{ required: true }],
@@ -35,5 +35,7 @@ const inputs: FormInputs<FieldType> = {
 
 export const AddProductVariant = ({ withGroupName = false }: AddProductVariantProps) => {
   const groupName = withGroupName ? "product_variants" : ""
-  return <GridForm<FieldType> inputs={inputs} grid={formRows} groupName={groupName} />
+  return (
+    <GridForm<AddProductVariantsFormItems> inputs={inputs} grid={formRows} groupName={groupName} />
+  )
 }

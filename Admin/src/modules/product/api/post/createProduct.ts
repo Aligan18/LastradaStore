@@ -4,7 +4,7 @@ import type { CreateProduct, Product } from "../types"
 
 const createProduct = productApi.injectEndpoints({
   endpoints: (build) => ({
-    createProduct: build.mutation<Product, CreateProduct>({
+    createProduct: build.mutation<Product[], CreateProduct>({
       query: (payload) => ({
         table: Tables.PRODUCTS,
         method: Methods.CREATE,

@@ -113,7 +113,6 @@ export type Database = {
           purchase_date: string | null
           purchase_price: number
           quantity_added: number
-          supplier: string | null
         }
         Insert: {
           id?: string
@@ -123,7 +122,6 @@ export type Database = {
           purchase_date?: string | null
           purchase_price?: number
           quantity_added: number
-          supplier?: string | null
         }
         Update: {
           id?: string
@@ -133,7 +131,6 @@ export type Database = {
           purchase_date?: string | null
           purchase_price?: number
           quantity_added?: number
-          supplier?: string | null
         }
         Relationships: [
           {

@@ -4,10 +4,7 @@ import type { AdapterParams, AdapterResponse } from "./types/api"
 
 const ALL = "*"
 
-export const apiAdapter = async <
-  T extends Record<string, unknown> = Record<string, unknown>,
-  P = undefined,
->({
+export const apiAdapter = async <T = Record<string, unknown>, P = undefined>({
   table,
   method,
   payload,
@@ -31,7 +28,7 @@ export const apiAdapter = async <
 
       case Methods.CREATE:
         if (!payload) throw new Error("Payload is required for CREATE")
-        response = await supabase.from(table).insert(payload).select()
+        response = await supabase.from(table).insert(payload).select(select)
         break
 
       case Methods.UPDATE:

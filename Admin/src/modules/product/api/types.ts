@@ -13,7 +13,6 @@ export type Product = {
   price: number
   images?: string[]
   created_at: string
-  purchase_price: number
 }
 
 export type ProductVariants = {
@@ -27,3 +26,7 @@ export type ProductVariants = {
 }
 
 export type CreateProduct = Omit<Product, "created_at" | "id">
+
+export type CreateProductVariant = Pick<ProductVariants, "size" | "product_id"> & {
+  color_id: number
+}

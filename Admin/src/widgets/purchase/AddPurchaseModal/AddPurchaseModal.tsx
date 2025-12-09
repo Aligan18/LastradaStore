@@ -1,6 +1,19 @@
-import { AddProductForm, AddProductVariantForm, AddPurchaseForm } from "@components"
-import { ProductSelect, ProductVariantSelect } from "@modules"
-import { CustomModal, FormValueConnector, Size } from "@shared"
+import {
+  AddProductForm,
+  AddProductVariantForm,
+  AddPurchaseForm,
+  type AddProductFormItems,
+  type AddProductVariantsFormItems,
+  type AddPurchaseFormItems,
+} from "@components"
+import {
+  ProductSelect,
+  ProductVariantSelect,
+  useCreateProductMutation,
+  useCreateProductVariantMutation,
+  useCreatePurchaseMutation,
+} from "@modules"
+import { CustomModal, FormValueConnector } from "@shared"
 import { Button, Divider, Flex, Form, Tabs, type TabsProps } from "antd"
 import { useState } from "react"
 
@@ -15,20 +28,11 @@ const enum ProductTabs {
 }
 
 type FormItems = {
-  purchase_price: number
-  quantity_added: number
-  product: {
-    description: string
-    images: string[]
-    name: string
-    price: number
-  }
-  product_variants: {
-    color_id: number
-    size: Size
-  }
   product_id: number
   product_variant_id: number
+  product: AddProductFormItems
+  product_variants: AddProductVariantsFormItems
+  purchase: AddPurchaseFormItems
 }
 
 export const AddPurchaseModal = () => {
@@ -37,11 +41,34 @@ export const AddPurchaseModal = () => {
     ProductVariantTabs.SELECT_VARIANT,
   )
 
+  const [createProduct] = useCreateProductMutation()
+  const [createProductVariant] = useCreateProductVariantMutation()
+  const [createPurchase] = useCreatePurchaseMutation()
+
   const [productTab, setProductTab] = useState<ProductTabs>(ProductTabs.SELECT_PRODUCT)
 
   const isCreateProductTab = productTab === ProductTabs.CREATE_PRODUCT
 
-  const handleSubmit = (formData: FormItems) => {}
+  const handleSubmit = async (formData: FormItems) => {
+    console.log(formData)
+    let product_id = formData.product_id
+    let product_variant_id = formData.product_variant_id
+
+    if (productTab === ProductTabs.CREATE_PRODUCT) {
+      product_id = (await createProduct(formData.product).unwrap())[0].id
+    }
+
+    if (productVariantTab === ProductVariantTabs.CREATE_VARIANT) {
+      const { product_variants } = formData
+      product_variant_id = (
+        await createProductVariant({ product_id, ...product_variants }).unwrap()
+      )[0].id
+    }
+
+    await createPurchase({ ...formData.purchase, product_variant_id })
+
+    console.log(product_id, product_variant_id)
+  }
 
   const handleChangeProductTab = (key: ProductTabs) => {
     if (key === ProductTabs.CREATE_PRODUCT) {
@@ -91,12 +118,14 @@ export const AddPurchaseModal = () => {
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
         <Flex vertical>
           <Tabs
+            destroyOnHidden
             activeKey={productTab}
             items={selectProductTabs}
             onChange={(key) => handleChangeProductTab(key as ProductTabs)}
           />
           <Divider />
           <Tabs
+            destroyOnHidden
             items={selectProductVariantTabs}
             activeKey={productVariantTab}
             onChange={(key) => handleChangeVariantTab(key as ProductVariantTabs)}

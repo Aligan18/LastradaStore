@@ -106,6 +106,7 @@ export type Database = {
       }
       purchases: {
         Row: {
+          arrival_date: string | null
           id: string
           is_arrived: boolean
           note: string | null
@@ -113,8 +114,10 @@ export type Database = {
           purchase_date: string | null
           purchase_price: number
           quantity_added: number
+          total_spent: number
         }
         Insert: {
+          arrival_date?: string | null
           id?: string
           is_arrived?: boolean
           note?: string | null
@@ -122,8 +125,10 @@ export type Database = {
           purchase_date?: string | null
           purchase_price?: number
           quantity_added: number
+          total_spent: number
         }
         Update: {
+          arrival_date?: string | null
           id?: string
           is_arrived?: boolean
           note?: string | null
@@ -131,6 +136,7 @@ export type Database = {
           purchase_date?: string | null
           purchase_price?: number
           quantity_added?: number
+          total_spent?: number
         }
         Relationships: [
           {

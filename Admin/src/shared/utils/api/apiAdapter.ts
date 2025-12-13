@@ -13,6 +13,10 @@ export const apiAdapter = async <T = Record<string, unknown>, P = undefined>({
 }: AdapterParams<T, P>): Promise<AdapterResponse<T>> => {
   const select = params.select ?? ALL
 
+  if (!params.filter) {
+    params.filter = (query) => query
+  }
+
   try {
     let response
 

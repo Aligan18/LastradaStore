@@ -50,7 +50,6 @@ export const AddPurchaseModal = () => {
   const isCreateProductTab = productTab === ProductTabs.CREATE_PRODUCT
 
   const handleSubmit = async (formData: FormItems) => {
-    console.log(formData)
     let product_id = formData.product_id
     let product_variant_id = formData.product_variant_id
 
@@ -66,8 +65,6 @@ export const AddPurchaseModal = () => {
     }
 
     await createPurchase({ ...formData.purchase, product_variant_id })
-
-    console.log(product_id, product_variant_id)
   }
 
   const handleChangeProductTab = (key: ProductTabs) => {

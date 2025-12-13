@@ -5,5 +5,10 @@ export const resetConfig: ThemeConfig = {
     Form: {
       marginLG: 10,
     },
+    Typography: {
+      margin: 0,
+      titleMarginBottom: 0,
+      titleMarginTop: 0,
+    },
   },
 }

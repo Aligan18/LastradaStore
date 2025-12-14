@@ -1,4 +1,4 @@
-import type { Size } from "@shared"
+import type { ResponseAll, Size } from "@shared"
 
 type ProductColors = {
   id: number
@@ -15,6 +15,8 @@ export type Product = {
   created_at: string
 }
 
+export type ProductsResponse = ResponseAll<Product[]>
+
 export type ProductVariants = {
   id: number
   product_id: number
@@ -24,6 +26,8 @@ export type ProductVariants = {
   remaining: number
   total_purchased: number
 }
+
+export type ProductVariantsResponse = ResponseAll<ProductVariants[]>
 
 export type CreateProduct = Omit<Product, "created_at" | "id">
 

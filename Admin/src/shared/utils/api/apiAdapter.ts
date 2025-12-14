@@ -1,6 +1,6 @@
 import { supabase } from "../../configs"
 import { Methods } from "../../constants"
-import type { AdapterParams, AdapterResponse } from "./types/api"
+import type { AdapterParams, AdapterResponse, MyFilterBuilder } from "./types/api"
 
 const ALL = "*"
 
@@ -17,12 +17,29 @@ export const apiAdapter = async <T = Record<string, unknown>, P = undefined>({
     params.filter = (query) => query
   }
 
+  const paginationQuery = (query: MyFilterBuilder<T>) => {
+    if (params.pagination) {
+      const { current, pageSize } = params.pagination
+      const from = (current - 1) * pageSize
+      const to = from + pageSize - 1
+      return query.range(from, to)
+    }
+    return query
+  }
+
   try {
     let response
 
     switch (method) {
       case Methods.GET_ALL: {
-        response = await params.filter(supabase.from(table).select(select))
+        response = await params.filter(
+          paginationQuery(
+            supabase
+              .from(table)
+              .select(select, { count: "exact" })
+              .order("id", { ascending: false }),
+          ),
+        )
         break
       }
       case Methods.GET_BY_ID:

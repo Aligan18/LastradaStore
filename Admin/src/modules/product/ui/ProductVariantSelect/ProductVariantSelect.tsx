@@ -9,8 +9,8 @@ export const ProductVariantSelect = ({ productId, ...props }: ProductVariantSele
     { productId },
     {
       selectFromResult: ({ data }) => ({
-        variantOptions: data
-          ? data.map(({ colors, size, id }) => ({
+        variantOptions: data?.data
+          ? data.data.map(({ colors, size, id }) => ({
               label: `${colors.name}-${size}`,
               value: id,
             }))

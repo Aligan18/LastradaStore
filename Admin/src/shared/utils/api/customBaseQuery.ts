@@ -17,9 +17,9 @@ export const customBaseQuery =
   (apiAdapter: ApiAdapter): BaseQueryFn<AdapterParams> =>
   async (args: AdapterParams) => {
     try {
-      const { data, error } = await apiAdapter(args)
+      const { data, count, error } = await apiAdapter(args)
       if (error) throw error
-      return { data }
+      return { data: { data, total: count ?? 0 } }
     } catch (error) {
       const { extraOptions } = args
       const errorClientText = extraOptions?.errorMessage || "Произошла ошибка. Попробуйте позже."

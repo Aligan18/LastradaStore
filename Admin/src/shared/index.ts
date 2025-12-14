@@ -10,6 +10,6 @@ export {
   CustomTable,
 } from "./ui"
 export type { FormRowAndCol, FormInputs } from "./ui"
-export type { Database } from "./types"
-export type { MyFilterBuilder, SelectStructure } from "./utils"
+export type { Database, ResponseAll } from "./types"
+export type { MyFilterBuilder, SelectStructure, Pagination } from "./utils"
 export { baseQueryWithAdapter, createSelectRequest } from "./utils"

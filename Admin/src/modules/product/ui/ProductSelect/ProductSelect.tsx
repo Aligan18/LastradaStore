@@ -4,8 +4,8 @@ import { useGetProductsQuery } from "../../api"
 export const ProductSelect = () => {
   const { productOptions } = useGetProductsQuery(undefined, {
     selectFromResult: ({ data }) => ({
-      productOptions: data
-        ? data.map(({ name, id }) => ({
+      productOptions: data?.data
+        ? data.data.map(({ name, id }) => ({
             label: `${id}-${name}`,
             value: id,
           }))

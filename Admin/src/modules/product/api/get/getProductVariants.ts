@@ -6,7 +6,8 @@ import {
   type SelectStructure,
 } from "@shared"
 import { productApi } from "../productApi"
-import type { ProductVariants } from "../types"
+import type { ProductVariants, ProductVariantsResponse } from "../types"
+import { ProductTags } from "../productTags"
 
 const selectRequest: SelectStructure<ProductVariants> = [
   "id",
@@ -20,7 +21,7 @@ type RequestParams = {
 
 const getProductVariants = productApi.injectEndpoints({
   endpoints: (build) => ({
-    getProductVariants: build.query<ProductVariants[], RequestParams>({
+    getProductVariants: build.query<ProductVariantsResponse, RequestParams>({
       query: ({ productId }) => ({
         table: Tables.VARIANTS,
         method: Methods.GET_ALL,
@@ -30,6 +31,7 @@ const getProductVariants = productApi.injectEndpoints({
         },
         extraOptions: { errorMessage: "Ошибка при попытке получить варианты товара" },
       }),
+      providesTags: [ProductTags.ALL_VARIANTS],
     }),
   }),
   overrideExisting: false,

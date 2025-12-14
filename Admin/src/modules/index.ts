@@ -5,4 +5,4 @@ export {
   useCreateProductMutation,
   useCreateProductVariantMutation,
 } from "./product"
-export { PurchaseTable, PurchaseFilter, useCreatePurchaseMutation, purchaseApi } from "./purchase"
+export { PurchaseTable, useCreatePurchaseMutation, purchaseApi } from "./purchase"

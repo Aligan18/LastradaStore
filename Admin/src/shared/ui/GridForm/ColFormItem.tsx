@@ -19,6 +19,11 @@ export const ColFormItem = <T,>({
 }: ColFormItemProps<T>) => {
   const currentName = groupName && name ? ([groupName, name] as NamePath) : name
   const isInputFunction = typeof input === "function"
+
+  if (colProps?.children) {
+    return colProps?.children
+  }
+
   return (
     <Col span={24} {...colProps}>
       {isInputFunction ? (

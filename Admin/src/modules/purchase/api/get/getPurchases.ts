@@ -42,6 +42,7 @@ const getPurchases = purchaseApi.injectEndpoints({
       providesTags: [PurchaseTags.ALL_PURCHASE],
     }),
   }),
+  overrideExisting: false,
 })
 
 export const { useGetPurchasesQuery } = getPurchases

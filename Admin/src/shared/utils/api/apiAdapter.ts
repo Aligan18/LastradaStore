@@ -49,7 +49,7 @@ export const apiAdapter = async <T = Record<string, unknown>, P = undefined>({
 
       case Methods.CREATE:
         if (!payload) throw new Error("Payload is required for CREATE")
-        response = await supabase.from(table).insert(payload).select(select)
+        response = await supabase.from(table).insert(payload).select(select).single()
         break
 
       case Methods.UPDATE:
@@ -66,8 +66,7 @@ export const apiAdapter = async <T = Record<string, unknown>, P = undefined>({
         throw new Error("Unknown method")
     }
 
-    if (response.error) throw response.error
-
+    if (response?.error) throw response?.error
     return response
   } catch (error) {
     return { error }

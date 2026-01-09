@@ -1,4 +1,4 @@
-import { CustomTable, type Pagination } from "@shared"
+import { CustomTable, DEFAULT_PAGINATION, type Pagination } from "@shared"
 import { useGetPurchasesQuery, useUpdateIsArriveMutation } from "../../api"
 import type { ColumnsType } from "antd/es/table"
 import type { FullPurchase } from "../../api/types"
@@ -6,15 +6,12 @@ import { Checkbox, type CheckboxChangeEvent } from "antd"
 import { useState } from "react"
 
 export const PurchaseTable = () => {
-  const [pagination, setPagination] = useState<Pagination>({
-    pageSize: 15,
-    current: 1,
-  })
+  const [pagination, setPagination] = useState<Pagination>(DEFAULT_PAGINATION)
 
   const { data } = useGetPurchasesQuery({ pagination })
   const [updateArrive] = useUpdateIsArriveMutation()
 
-  const handleUpdateArrive = (event: CheckboxChangeEvent, purchaseId: string) => {
+  const handleUpdateArrive = (event: CheckboxChangeEvent, purchaseId: number) => {
     updateArrive({ is_arrived: event.target.checked, purchaseId })
   }
 

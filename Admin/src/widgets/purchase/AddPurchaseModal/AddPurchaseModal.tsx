@@ -80,7 +80,7 @@ export const AddPurchaseModal = () => {
     {
       key: ProductTabs.SELECT_PRODUCT,
       label: "Выбрать товар",
-      children: <ProductSelect />,
+      children: <ProductSelect withFormItems formItemProps={{ label: "Товар" }} />,
     },
     {
       key: ProductTabs.CREATE_PRODUCT,
@@ -99,7 +99,9 @@ export const AddPurchaseModal = () => {
           valueByName="product_id"
           name="product_variant_id"
           rules={[{ required: true }]}>
-          {(productId) => <ProductVariantSelect productId={productId} key={productId} />}
+          {(productId) => (
+            <ProductVariantSelect label={"Вариант"} productId={productId} key={productId} />
+          )}
         </FormValueConnector>
       ),
     },
@@ -111,7 +113,7 @@ export const AddPurchaseModal = () => {
   ]
 
   return (
-    <CustomModal openButtonText="Создать закуп">
+    <CustomModal title="Закуп" openButtonText="Создать закуп">
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
         <Flex vertical>
           <Tabs

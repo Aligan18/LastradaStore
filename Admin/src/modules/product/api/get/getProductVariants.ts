@@ -12,6 +12,7 @@ import { ProductTags } from "../productTags"
 const selectRequest: SelectStructure<ProductVariants> = [
   "id",
   "size",
+  "remaining",
   { colors: ["id", "name", "hex"] },
 ]
 

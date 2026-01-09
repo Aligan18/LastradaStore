@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      clients: {
+        Row: {
+          address: string | null
+          city: string | null
+          created_at: string | null
+          delivery_number: string | null
+          id: number
+          instagram_account: string | null
+          name: string | null
+          postal_code: string | null
+          whats_app_account: string | null
+        }
+        Insert: {
+          address?: string | null
+          city?: string | null
+          created_at?: string | null
+          delivery_number?: string | null
+          id?: number
+          instagram_account?: string | null
+          name?: string | null
+          postal_code?: string | null
+          whats_app_account?: string | null
+        }
+        Update: {
+          address?: string | null
+          city?: string | null
+          created_at?: string | null
+          delivery_number?: string | null
+          id?: number
+          instagram_account?: string | null
+          name?: string | null
+          postal_code?: string | null
+          whats_app_account?: string | null
+        }
+        Relationships: []
+      }
       colors: {
         Row: {
           hex: string | null
@@ -107,7 +143,7 @@ export type Database = {
       purchases: {
         Row: {
           arrival_date: string | null
-          id: string
+          id: number
           is_arrived: boolean
           note: string | null
           product_variant_id: number | null
@@ -118,7 +154,7 @@ export type Database = {
         }
         Insert: {
           arrival_date?: string | null
-          id?: string
+          id?: number
           is_arrived?: boolean
           note?: string | null
           product_variant_id?: number | null
@@ -129,7 +165,7 @@ export type Database = {
         }
         Update: {
           arrival_date?: string | null
-          id?: string
+          id?: number
           is_arrived?: boolean
           note?: string | null
           product_variant_id?: number | null
@@ -148,6 +184,117 @@ export type Database = {
           },
         ]
       }
+      realization_items: {
+        Row: {
+          earned: number
+          id: number
+          product_id: number
+          product_variant_id: number
+          realization_id: number
+          realization_price: number
+          realization_quantity: number
+        }
+        Insert: {
+          earned?: number
+          id?: number
+          product_id: number
+          product_variant_id: number
+          realization_id: number
+          realization_price?: number
+          realization_quantity: number
+        }
+        Update: {
+          earned?: number
+          id?: number
+          product_id?: number
+          product_variant_id?: number
+          realization_id?: number
+          realization_price?: number
+          realization_quantity?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "realization_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "realization_items_product_variant_id_fkey"
+            columns: ["product_variant_id"]
+            isOneToOne: false
+            referencedRelation: "product_variants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "realization_items_realization_id_fkey"
+            columns: ["realization_id"]
+            isOneToOne: false
+            referencedRelation: "realizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      realizations: {
+        Row: {
+          address: string | null
+          city: string | null
+          client_id: number | null
+          client_name: string | null
+          delivery_number: string | null
+          id: number
+          instagram_account: string | null
+          messenger: Database["public"]["Enums"]["messenger_type"] | null
+          note: string | null
+          postal_code: string | null
+          realization_date: string
+          status: Database["public"]["Enums"]["realization_status"]
+          steps: Database["public"]["Enums"]["realization_steps"]
+          whats_app_account: string | null
+        }
+        Insert: {
+          address?: string | null
+          city?: string | null
+          client_id?: number | null
+          client_name?: string | null
+          delivery_number?: string | null
+          id?: number
+          instagram_account?: string | null
+          messenger?: Database["public"]["Enums"]["messenger_type"] | null
+          note?: string | null
+          postal_code?: string | null
+          realization_date?: string
+          status?: Database["public"]["Enums"]["realization_status"]
+          steps?: Database["public"]["Enums"]["realization_steps"]
+          whats_app_account?: string | null
+        }
+        Update: {
+          address?: string | null
+          city?: string | null
+          client_id?: number | null
+          client_name?: string | null
+          delivery_number?: string | null
+          id?: number
+          instagram_account?: string | null
+          messenger?: Database["public"]["Enums"]["messenger_type"] | null
+          note?: string | null
+          postal_code?: string | null
+          realization_date?: string
+          status?: Database["public"]["Enums"]["realization_status"]
+          steps?: Database["public"]["Enums"]["realization_steps"]
+          whats_app_account?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "realizations_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -156,6 +303,9 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      messenger_type: "WhatsApp" | "Instagram"
+      realization_status: "active" | "package" | "finished"
+      realization_steps: "add_products" | "client_info" | "payment"
       size: "std" | "s" | "m" | "l" | "xl" | "2xl"
     }
     CompositeTypes: {
@@ -284,6 +434,9 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      messenger_type: ["WhatsApp", "Instagram"],
+      realization_status: ["active", "package", "finished"],
+      realization_steps: ["add_products", "client_info", "payment"],
       size: ["std", "s", "m", "l", "xl", "2xl"],
     },
   },

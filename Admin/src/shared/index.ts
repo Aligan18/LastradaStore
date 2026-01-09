@@ -15,5 +15,11 @@ export {
 export type { FormRowAndCol, FormInputs } from "./ui"
 export type { Database, ResponseAll, ValueOf } from "./types"
 export type { MyFilterBuilder, SelectStructure, Pagination } from "./utils"
-export { baseQueryWithAdapter, createSelectRequest, normalizePhone, sendToMessenger } from "./utils"
+export {
+  baseQueryWithAdapter,
+  createSelectRequest,
+  normalizePhone,
+  sendToMessenger,
+  isCustomApiError,
+} from "./utils"
 export { useAppDispatch, useDebounce } from "./hooks"

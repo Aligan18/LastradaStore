@@ -1,4 +1,6 @@
 export const enum ReducerPath {
-  PRODUCT = "product",
-  PURCHASE = "purchase",
+  PRODUCT = "productApi",
+  PURCHASE = "purchaseApi",
+  REALIZATION = "realizationApi",
+  CLIENT = "clientApi",
 }

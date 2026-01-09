@@ -23,10 +23,7 @@ const getClientByAccount = clientApi.injectEndpoints({
         extraOptions: { errorMessage: "Ошибка при попытке получить информацию о клиенте" },
       }),
       providesTags: [ClientTags.CLIENT_BY_FIELD],
-      transformResponse: (response: ResponseAll<Clients[]>) => {
-        console.log("response", response)
-        return response.data[0]
-      },
+      transformResponse: (response: ResponseAll<Clients[]>) => response.data[0],
     }),
   }),
 

@@ -4,7 +4,7 @@ import type { CreatePurchase, Purchase } from "../types"
 import { PurchaseTags } from "../purchaseTags"
 
 type Params = Pick<CreatePurchase, "is_arrived"> & {
-  purchaseId: string
+  purchaseId: number
 }
 
 const updateIsArrive = purchaseApi.injectEndpoints({

@@ -1,21 +1,60 @@
-import { Form, Select } from "antd"
+import { Form, Select, type FormItemProps, type SelectProps } from "antd"
 import { useGetProductsQuery } from "../../api"
 
-export const ProductSelect = () => {
+type ProductSelectProps = {
+  groupName?: string
+  formItemProps?: FormItemProps
+  withFormItems?: boolean
+} & SelectProps
+
+const PRODUCT_ID = "product_id"
+
+export const ProductSelect = ({
+  groupName,
+  withFormItems = false,
+  formItemProps,
+  ...props
+}: ProductSelectProps) => {
   const { productOptions } = useGetProductsQuery(undefined, {
     selectFromResult: ({ data }) => ({
       productOptions: data?.data
-        ? data.data.map(({ name, id }) => ({
-            label: `${id}-${name}`,
+        ? data.data.map(({ name, id, price }) => ({
+            label: `${id} | ${name} | ${price} тг`,
             value: id,
           }))
         : [],
     }),
   })
 
+  const formName = groupName ? [groupName, PRODUCT_ID] : PRODUCT_ID
+
+  if (withFormItems) {
+    return (
+      <Form.Item name={formName} rules={[{ required: true }]} {...formItemProps}>
+        <Select
+          showSearch={{
+            filterOption: (input, option) =>
+              String(option?.label ?? "")
+                .toLowerCase()
+                .includes(input.toLowerCase()),
+          }}
+          {...props}
+          options={productOptions}
+        />
+      </Form.Item>
+    )
+  }
+
   return (
-    <Form.Item name="product_id" label="Товар" rules={[{ required: true }]}>
-      <Select options={productOptions} />
-    </Form.Item>
+    <Select
+      showSearch={{
+        filterOption: (input, option) =>
+          String(option?.label ?? "")
+            .toLowerCase()
+            .includes(input.toLowerCase()),
+      }}
+      {...props}
+      options={productOptions}
+    />
   )
 }

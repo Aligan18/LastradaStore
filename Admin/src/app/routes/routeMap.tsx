@@ -1,4 +1,4 @@
-import { PurchasePage } from "@pages"
+import { PurchasePage, RealizationPage } from "@pages"
 import { RoutePath } from "./constants/routePath"
 import { createRoute } from "./utils/createRoute"
 import type { RouteAndMenuProps } from "./types/route"
@@ -9,14 +9,16 @@ export const routeMap: RouteMap = {
   [RoutePath.HOME]: createRoute({
     element: <></>,
   }),
-
   [RoutePath.PURCHASE]: createRoute({
     element: <PurchasePage />,
     menuLabel: "Закуп",
   }),
-
   [RoutePath.PRODUCTS]: createRoute({
     element: <div>Products</div>,
     menuLabel: "Продукты",
+  }),
+  [RoutePath.REALIZATION]: createRoute({
+    element: <RealizationPage />,
+    menuLabel: "Продажи",
   }),
 }

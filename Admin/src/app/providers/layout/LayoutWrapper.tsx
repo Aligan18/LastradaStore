@@ -15,7 +15,7 @@ type LayoutWrapperProps = {
 export const LayoutWrapper = ({ children }: LayoutWrapperProps) => {
   return (
     <Layout className={classes.layout}>
-      <Sider width={200}>
+      <Sider breakpoint="md" collapsedWidth={0} collapsible width={200}>
         <Navbar items={menuItems} />
       </Sider>
       <Content className={classes.content}>{children}</Content>

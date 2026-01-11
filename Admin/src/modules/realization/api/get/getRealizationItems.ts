@@ -2,7 +2,7 @@ import {
   createSelectRequest,
   Methods,
   Tables,
-  type MyFilterBuilder,
+  type AdapterParams,
   type SelectStructure,
 } from "@shared"
 import { realizationApi } from "../realizationApi"
@@ -30,12 +30,12 @@ type Params = {
 const getRealizationItems = realizationApi.injectEndpoints({
   endpoints: (build) => ({
     getRealizationItems: build.query<FullRealizationItemsResponse, Params>({
-      query: ({ id }) => ({
+      query: ({ id }): AdapterParams<FullRealizationItems> => ({
         table: Tables.REALIZATION_ITEMS,
         method: Methods.GET_ALL,
         params: {
           select: selectRequest,
-          filter: (query: MyFilterBuilder<FullRealizationItems>) => query.eq("realization_id", id),
+          filter: (query) => query.eq("realization_id", id),
         },
         extraOptions: { errorMessage: "Ошибка при попытке получить список товаров" },
       }),

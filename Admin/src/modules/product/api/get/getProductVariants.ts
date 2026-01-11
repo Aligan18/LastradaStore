@@ -2,7 +2,7 @@ import {
   createSelectRequest,
   Methods,
   Tables,
-  type MyFilterBuilder,
+  type AdapterParams,
   type SelectStructure,
 } from "@shared"
 import { productApi } from "../productApi"
@@ -23,12 +23,12 @@ type RequestParams = {
 const getProductVariants = productApi.injectEndpoints({
   endpoints: (build) => ({
     getProductVariants: build.query<ProductVariantsResponse, RequestParams>({
-      query: ({ productId }) => ({
+      query: ({ productId }): AdapterParams<ProductVariants> => ({
         table: Tables.VARIANTS,
         method: Methods.GET_ALL,
         params: {
           select: createSelectRequest(selectRequest),
-          filter: (query: MyFilterBuilder<ProductVariants>) => query.eq("product_id", productId),
+          filter: (query) => query.eq("product_id", productId),
         },
         extraOptions: { errorMessage: "Ошибка при попытке получить варианты товара" },
       }),

@@ -63,6 +63,7 @@ export const AddRealizationModal = () => {
         const currentAccount = deriveAccountByMessenger(realization, messenger)
         dispatch(setCurrentAccount(currentAccount))
         dispatch(setMessengerType(messenger))
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setActiveTab(steps)
       }
     }
@@ -143,7 +144,9 @@ export const AddRealizationModal = () => {
             </ReturnToChatButton>
           ),
         }}
-        onTabClick={handleTabClick}
+        onTabClick={(activeKey) =>
+          handleTabClick(activeKey as ValueOf<typeof RealizationSteps> | typeof ACCOUNT_INFO_STEP)
+        }
         centered
         items={items}
       />

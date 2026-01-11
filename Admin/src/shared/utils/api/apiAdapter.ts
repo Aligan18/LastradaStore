@@ -4,7 +4,10 @@ import type { AdapterParams, AdapterResponse, MyFilterBuilder } from "./types/ap
 
 const ALL = "*"
 
-export const apiAdapter = async <T = Record<string, unknown>, P = undefined>({
+export const apiAdapter = async <
+  T extends Record<string, unknown> = Record<string, unknown>,
+  P = undefined,
+>({
   table,
   method,
   payload,
@@ -54,19 +57,23 @@ export const apiAdapter = async <T = Record<string, unknown>, P = undefined>({
 
       case Methods.UPDATE:
         if (!id || !payload) throw new Error("ID and payload required for UPDATE")
-        response = await params.filter(supabase.from(table).update(payload).eq("id", id).select())
+        response = await supabase.from(table).update(payload).eq("id", id).select()
         break
 
       case Methods.DELETE:
         if (!id) throw new Error("ID required for DELETE")
-        response = await params.filter(supabase.from(table).delete().eq("id", id).select())
+        response = await supabase.from(table).delete().eq("id", id).select()
         break
 
       default:
         throw new Error("Unknown method")
     }
 
-    if (response?.error) throw response?.error
+    if (response?.error) {
+      throw response?.error
+    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     return response
   } catch (error) {
     return { error }

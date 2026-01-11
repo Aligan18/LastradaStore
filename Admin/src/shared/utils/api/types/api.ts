@@ -1,21 +1,27 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Methods } from "src/shared/constants"
 
+type onlyString<T> = Extract<T, string>
 export interface MyFilterBuilder<Row extends Record<string, unknown>> {
-  eq: (column: keyof Row, value: Row[keyof Row]) => MyFilterBuilder<Row>
-  neq: (column: keyof Row, value: Row[keyof Row]) => MyFilterBuilder<Row>
-  gt: (column: keyof Row, value: Row[keyof Row]) => MyFilterBuilder<Row>
-  lt: (column: keyof Row, value: Row[keyof Row]) => MyFilterBuilder<Row>
+  eq: (column: onlyString<keyof Row>, value: any) => MyFilterBuilder<Row>
+  neq: (column: onlyString<keyof Row>, value: any) => MyFilterBuilder<Row>
+  gt: (column: onlyString<keyof Row>, value: any) => MyFilterBuilder<Row>
+  lt: (column: onlyString<keyof Row>, value: any) => MyFilterBuilder<Row>
   range: (from: number, to: number) => MyFilterBuilder<Row>
-  order: (column: keyof Row, sort: { ascending: boolean }) => MyFilterBuilder<Row>
+  order: (column: onlyString<keyof Row>, sort: { ascending: boolean }) => MyFilterBuilder<Row>
+  error?: unknown
 }
 
-type RequestParams<T = unknown> = {
+type RequestParams<T extends Record<string, unknown>> = {
   select?: string
-  filter?: (query: MyFilterBuilder<SafeRow<T>>) => MyFilterBuilder<SafeRow<T>>
+  filter?: (query: MyFilterBuilder<T>) => MyFilterBuilder<T>
   pagination?: Pagination
 }
 
-export type AdapterParams<T = unknown, P = unknown> = {
+export type AdapterParams<
+  T extends Record<string, unknown> = Record<string, unknown>,
+  P = unknown,
+> = {
   table: string
   method: Methods
   params?: RequestParams<T>
@@ -30,14 +36,12 @@ export type ExtraOptions = {
 }
 
 export type AdapterResponse<T> = {
-  data?: T
-  count?: number
+  data?: T | T[] | null
+  count?: number | null
   error?: unknown
 }
 
-type SafeRow<T> = T extends Record<keyof T, unknown> ? T : Record<keyof T, unknown>
-
-export type ApiAdapter<T = unknown, P = unknown> = (
+export type ApiAdapter = <T extends Record<string, unknown>, P = unknown>(
   args: AdapterParams<T, P>,
 ) => Promise<AdapterResponse<T>>
 

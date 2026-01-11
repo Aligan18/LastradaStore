@@ -1,4 +1,4 @@
-import { Methods, Tables } from "@shared"
+import { Methods, Tables, type AdapterParams } from "@shared"
 import { purchaseApi } from "../purchaseApi"
 import type { CreatePurchase, Purchase } from "../types"
 import { PurchaseTags } from "../purchaseTags"
@@ -10,7 +10,10 @@ type Params = Pick<CreatePurchase, "is_arrived"> & {
 const updateIsArrive = purchaseApi.injectEndpoints({
   endpoints: (build) => ({
     updateIsArrive: build.mutation<Purchase, Params>({
-      query: ({ purchaseId, ...payload }) => ({
+      query: ({
+        purchaseId,
+        ...payload
+      }): AdapterParams<Purchase, Pick<CreatePurchase, "is_arrived">> => ({
         method: Methods.UPDATE,
         table: Tables.PURCHASES,
         payload,

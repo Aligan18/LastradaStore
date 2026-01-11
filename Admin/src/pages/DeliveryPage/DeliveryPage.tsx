@@ -77,8 +77,6 @@ export const DeliveryPage = () => {
     updateRealization({ id: realizationId, payload: { status: newStatus } })
   }
 
-  console.log(packageRealization)
-
   return (
     <CustomTable<FullRealization>
       className={classes.table}

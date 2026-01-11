@@ -21,6 +21,7 @@ export const ProductRealizationList = ({
   onChangeQuantity,
   onDeleteProduct,
 }: ProductRealizationListProps) => {
+  console.log(realizationItems[0].products.name)
   return (
     <List
       itemLayout="horizontal"
@@ -42,7 +43,7 @@ export const ProductRealizationList = ({
             ),
           ]}>
           <List.Item.Meta
-            title={`${id} | ${products.name} | ${product_variants.colors.name} | ${product_variants.size}`}
+            title={`${products.id} | ${products.name} | ${product_variants.colors.name} | ${product_variants.size}`}
             description={`${realization_price} тг`}
           />
         </List.Item>

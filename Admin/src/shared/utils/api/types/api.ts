@@ -7,6 +7,7 @@ export interface MyFilterBuilder<Row extends Record<string, unknown>> {
   neq: (column: onlyString<keyof Row>, value: any) => MyFilterBuilder<Row>
   gt: (column: onlyString<keyof Row>, value: any) => MyFilterBuilder<Row>
   lt: (column: onlyString<keyof Row>, value: any) => MyFilterBuilder<Row>
+  in: (column: onlyString<keyof Row>, value: any[]) => MyFilterBuilder<Row>
   range: (from: number, to: number) => MyFilterBuilder<Row>
   order: (column: onlyString<keyof Row>, sort: { ascending: boolean }) => MyFilterBuilder<Row>
   error?: unknown

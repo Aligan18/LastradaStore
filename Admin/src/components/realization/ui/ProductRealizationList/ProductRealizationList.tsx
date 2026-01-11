@@ -21,7 +21,6 @@ export const ProductRealizationList = ({
   onChangeQuantity,
   onDeleteProduct,
 }: ProductRealizationListProps) => {
-  console.log(realizationItems[0].products.name)
   return (
     <List
       itemLayout="horizontal"

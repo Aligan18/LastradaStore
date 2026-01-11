@@ -1,4 +1,4 @@
-import { Tables, Methods, type ResponseAll, type MyFilterBuilder } from "@shared"
+import { Tables, Methods, type ResponseAll, type AdapterParams } from "@shared"
 import { clientApi } from "../clientApi"
 
 import { ClientTags } from "../clientTags"
@@ -9,15 +9,19 @@ type Params = Partial<Pick<Clients, "instagram_account" | "whats_app_account">>
 const getClientByAccount = clientApi.injectEndpoints({
   endpoints: (build) => ({
     getClientByAccount: build.query<Clients, Params | null>({
-      query: (params) => ({
+      query: (params): AdapterParams<Clients> => ({
         table: Tables.CLIENTS,
         method: Methods.GET_ALL,
         params: {
-          filter: (query: MyFilterBuilder<Clients>) => {
-            Object.entries(params).forEach(([key, value]) => {
-              query.eq(key, value)
-            })
-            return query
+          filter: (query) => {
+            if (params) {
+              Object.entries(params).forEach(([key, value]) => {
+                query.eq(key as keyof Clients, value)
+              })
+              return query
+            } else {
+              return query
+            }
           },
         },
         extraOptions: { errorMessage: "Ошибка при попытке получить информацию о клиенте" },

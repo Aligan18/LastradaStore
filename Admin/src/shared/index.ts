@@ -21,5 +21,6 @@ export {
   normalizePhone,
   sendToMessenger,
   isCustomApiError,
+  type AdapterParams,
 } from "./utils"
 export { useAppDispatch, useDebounce } from "./hooks"

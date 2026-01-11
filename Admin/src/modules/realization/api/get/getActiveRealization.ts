@@ -1,4 +1,4 @@
-import { Methods, Tables, type MyFilterBuilder, type Pagination } from "@shared"
+import { Methods, Tables, type AdapterParams, type Pagination } from "@shared"
 import { realizationApi } from "../realizationApi"
 import { RealizationStatus, type Realization, type RealizationResponse } from "../types"
 import { RealizationTags } from "../realizationTags"
@@ -8,13 +8,12 @@ type Params = { pagination: Pagination }
 const getActiveRealization = realizationApi.injectEndpoints({
   endpoints: (build) => ({
     getActiveRealization: build.query<RealizationResponse, Params>({
-      query: ({ pagination }) => ({
+      query: ({ pagination }): AdapterParams<Realization> => ({
         table: Tables.REALIZATION,
         method: Methods.GET_ALL,
         params: {
           pagination,
-          filter: (query: MyFilterBuilder<Realization>) =>
-            query.eq("status", RealizationStatus.ACTIVE),
+          filter: (query) => query.eq("status", RealizationStatus.ACTIVE),
         },
         extraOptions: { errorMessage: "Ошибка при попытке получить список заказов" },
       }),

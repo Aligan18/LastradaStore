@@ -16,30 +16,31 @@ const isApiError = (error: unknown): error is ApiError => {
 }
 
 export const customBaseQuery =
-  (apiAdapter: ApiAdapter): BaseQueryFn<AdapterParams> =>
-  async (args: AdapterParams) => {
-    try {
-      const { data, count, error } = await apiAdapter(args)
-      if (error) throw error
-      return { data: { data, total: count ?? 0 } }
-    } catch (error) {
-      const { extraOptions } = args
-      const errorClientText = extraOptions?.errorMessage || "Произошла ошибка. Попробуйте позже."
-      const errorlog = isApiError(error) ? error?.message : "Unknown error"
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (apiAdapter: ApiAdapter): BaseQueryFn<AdapterParams<any, any>> =>
+    async (args: AdapterParams) => {
+      try {
+        const { data, count, error } = await apiAdapter(args)
+        if (error) throw error
+        return { data: { data, total: count ?? 0 } }
+      } catch (error) {
+        const { extraOptions } = args
+        const errorClientText = extraOptions?.errorMessage || "Произошла ошибка. Попробуйте позже."
+        const errorlog = isApiError(error) ? error?.message : "Unknown error"
 
-      console.error(error)
+        console.error(error)
 
-      if (!extraOptions?.skipErrorToast && errorClientText !== lastError) {
-        message.error(errorClientText)
-        lastError = errorClientText
-        setTimeout(() => (lastError = ""), 3000)
-      }
-      return {
-        error: {
-          status: "CUSTOM_ERROR",
-          message: errorlog,
-          details: isApiError(error) && error.details ? JSON.parse(error.details) : null,
-        } satisfies CustomApiError,
+        if (!extraOptions?.skipErrorToast && errorClientText !== lastError) {
+          message.error(errorClientText)
+          lastError = errorClientText
+          setTimeout(() => (lastError = ""), 3000)
+        }
+        return {
+          error: {
+            status: "CUSTOM_ERROR",
+            message: errorlog,
+            details: isApiError(error) && error.details ? JSON.parse(error.details) : null,
+          } satisfies CustomApiError,
+        }
       }
     }
-  }

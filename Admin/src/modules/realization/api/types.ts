@@ -3,7 +3,7 @@ import type { Product, ProductVariants } from "src/modules/product/api/types"
 
 export type RealizationItems = Database["public"]["Tables"]["realization_items"]["Row"]
 export type Realization = Database["public"]["Tables"]["realizations"]["Row"]
-type REALIZATION_STATUS = Database["public"]["Enums"]["realization_status"]
+export type REALIZATION_STATUS = Database["public"]["Enums"]["realization_status"]
 export type REALIZATION_STEPS = Database["public"]["Enums"]["realization_steps"]
 export type MESSENGER = Database["public"]["Enums"]["messenger_type"]
 
@@ -16,6 +16,7 @@ export const RealizationStatus: Record<Uppercase<REALIZATION_STATUS>, REALIZATIO
   ACTIVE: "active",
   PACKAGE: "package",
   FINISHED: "finished",
+  DELIVERY: "delivery",
 }
 
 export const RealizationSteps = {
@@ -23,6 +24,10 @@ export const RealizationSteps = {
   CLIENT_INFO: "client_info",
   PAYMENT: "payment",
 } as const
+
+export type FullRealization = Realization & {
+  realization_items: FullRealizationItems[]
+}
 
 export type FullRealizationItems = RealizationItems & {
   products: Product

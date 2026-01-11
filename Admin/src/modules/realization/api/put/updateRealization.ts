@@ -18,7 +18,11 @@ const updateRealization = realizationApi.injectEndpoints({
         payload,
         extraOptions: { errorMessage: "Ошибка при изменить заказ" },
       }),
-      invalidatesTags: [RealizationTags.ACTIVE_REALIZATIONS, RealizationTags.REALIZATION_BY_ID],
+      invalidatesTags: [
+        RealizationTags.ACTIVE_REALIZATIONS,
+        RealizationTags.REALIZATION_BY_ID,
+        RealizationTags.PACKAGE_REALIZATIONS,
+      ],
     }),
   }),
   overrideExisting: false,

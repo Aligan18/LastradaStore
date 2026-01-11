@@ -304,7 +304,7 @@ export type Database = {
     }
     Enums: {
       messenger_type: "WhatsApp" | "Instagram"
-      realization_status: "active" | "package" | "finished"
+      realization_status: "active" | "package" | "finished" | "delivery"
       realization_steps: "add_products" | "client_info" | "payment"
       size: "std" | "s" | "m" | "l" | "xl" | "2xl"
     }
@@ -435,7 +435,7 @@ export const Constants = {
   public: {
     Enums: {
       messenger_type: ["WhatsApp", "Instagram"],
-      realization_status: ["active", "package", "finished"],
+      realization_status: ["active", "package", "finished", "delivery"],
       realization_steps: ["add_products", "client_info", "payment"],
       size: ["std", "s", "m", "l", "xl", "2xl"],
     },

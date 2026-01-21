@@ -1,5 +1,6 @@
 import { GridForm, type FormInputs, type FormRowAndCol, type Size } from "@shared"
-import { Input } from "antd"
+import { ProductSizeSelect } from "src/modules/product/ui"
+import { ProductColorsSelect } from "src/modules/product/ui/ProductColorsSelect/ProductColorsSelect"
 
 export type AddProductVariantsFormItems = {
   size: Size
@@ -24,12 +25,12 @@ const inputs: FormInputs<AddProductVariantsFormItems> = {
   size: {
     label: "Размер",
     rules: [{ required: true }],
-    input: <Input />,
+    input: <ProductSizeSelect />,
   },
   color_id: {
     label: "Цвет",
     rules: [{ required: true }],
-    input: <Input />,
+    input: <ProductColorsSelect />,
   },
 }
 

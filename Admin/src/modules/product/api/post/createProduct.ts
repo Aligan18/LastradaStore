@@ -1,10 +1,10 @@
-import { Methods, Tables } from "@shared"
+import { Methods, Tables, type ResponseAll } from "@shared"
 import { productApi } from "../productApi"
 import type { CreateProduct, Product } from "../types"
 
 const createProduct = productApi.injectEndpoints({
   endpoints: (build) => ({
-    createProduct: build.mutation<Product[], CreateProduct>({
+    createProduct: build.mutation<ResponseAll<Product>, CreateProduct>({
       query: (payload) => ({
         table: Tables.PRODUCTS,
         method: Methods.CREATE,

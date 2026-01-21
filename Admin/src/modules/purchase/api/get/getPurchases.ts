@@ -18,6 +18,7 @@ const select: SelectStructure<FullPurchase> = [
   "purchase_price",
   "quantity_added",
   "total_spent",
+  "arrival_date",
   { product_variants: ["size", { colors: ["name"] }, { products: ["name"] }] },
 ]
 

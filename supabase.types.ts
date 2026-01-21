@@ -306,7 +306,7 @@ export type Database = {
       messenger_type: "WhatsApp" | "Instagram"
       realization_status: "active" | "package" | "finished" | "delivery"
       realization_steps: "add_products" | "client_info" | "payment"
-      size: "std" | "s" | "m" | "l" | "xl" | "2xl"
+      size: "STD" | "S" | "M" | "L" | "XL" | "2XL"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -437,7 +437,7 @@ export const Constants = {
       messenger_type: ["WhatsApp", "Instagram"],
       realization_status: ["active", "package", "finished", "delivery"],
       realization_steps: ["add_products", "client_info", "payment"],
-      size: ["std", "s", "m", "l", "xl", "2xl"],
+      size: ["STD", "S", "M", "L", "XL", "2XL"],
     },
   },
 } as const

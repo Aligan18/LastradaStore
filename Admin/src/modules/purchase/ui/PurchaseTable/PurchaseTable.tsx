@@ -15,23 +15,25 @@ export const PurchaseTable = () => {
     updateArrive({ is_arrived: event.target.checked, purchaseId })
   }
 
+  console.log(data)
+
   const columns: ColumnsType<FullPurchase> = [
     {
       key: "productName",
       title: "Название товара",
-      render: (_, data) => data.product_variants.products.name,
+      render: (_, data) => data.product_variants?.products.name,
     },
 
     {
       key: "size",
       title: "Размер",
       align: "center",
-      render: (_, data) => data.product_variants.size,
+      render: (_, data) => data.product_variants?.size,
     },
     {
       key: "color",
       title: "Цвет",
-      render: (_, data) => data.product_variants.colors.name,
+      render: (_, data) => data.product_variants?.colors.name,
     },
     {
       title: "Цена за штуку",

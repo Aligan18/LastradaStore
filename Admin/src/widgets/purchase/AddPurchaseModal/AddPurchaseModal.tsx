@@ -14,7 +14,7 @@ import {
   useCreatePurchaseMutation,
 } from "@modules"
 import { CustomModal, FormValueConnector } from "@shared"
-import { Button, Divider, Flex, Form, Tabs, type TabsProps } from "antd"
+import { Button, Divider, Flex, Form, message, Tabs, type TabsProps } from "antd"
 import { useState } from "react"
 
 const enum ProductVariantTabs {
@@ -53,18 +53,24 @@ export const AddPurchaseModal = () => {
     let product_id = formData.product_id
     let product_variant_id = formData.product_variant_id
 
-    if (productTab === ProductTabs.CREATE_PRODUCT) {
-      product_id = (await createProduct(formData.product).unwrap())[0].id
-    }
+    try {
+      if (productTab === ProductTabs.CREATE_PRODUCT) {
+        product_id = (await createProduct(formData.product).unwrap())?.data?.id
+      }
 
-    if (productVariantTab === ProductVariantTabs.CREATE_VARIANT) {
-      const { product_variants } = formData
-      product_variant_id = (
-        await createProductVariant({ product_id, ...product_variants }).unwrap()
-      )[0].id
-    }
+      if (productVariantTab === ProductVariantTabs.CREATE_VARIANT) {
+        const { product_variants } = formData
+        product_variant_id = (
+          await createProductVariant({ product_id, ...product_variants }).unwrap()
+        )?.data?.id
+      }
 
-    await createPurchase({ ...formData.purchase, product_variant_id })
+      await createPurchase({ ...formData.purchase, product_variant_id })
+
+      form.resetFields()
+    } catch {
+      message.error("Ошибка при попытке создать закуп")
+    }
   }
 
   const handleChangeProductTab = (key: ProductTabs) => {

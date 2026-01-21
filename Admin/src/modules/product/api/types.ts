@@ -1,10 +1,22 @@
-import type { ResponseAll, Size } from "@shared"
+import type { Database, ResponseAll, Size } from "@shared"
+
+export type Colors = Database["public"]["Tables"]["colors"]["Row"]
+export type SIZES = Database["public"]["Enums"]["size"]
 
 type ProductColors = {
   id: number
   name: string
   hex: string
 }
+
+export const ProductSizes: Record<Uppercase<SIZES>, SIZES> = {
+  STD: "STD",
+  S: "S",
+  M: "M",
+  L: "L",
+  XL: "XL",
+  "2XL": "2XL",
+} as const
 
 export type Product = {
   id: number
@@ -16,6 +28,8 @@ export type Product = {
 }
 
 export type ProductsResponse = ResponseAll<Product[]>
+
+export type ColorsResponse = ResponseAll<Colors[]>
 
 export type ProductVariants = {
   id: number

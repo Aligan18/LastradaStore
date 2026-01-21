@@ -17,6 +17,7 @@ const select: SelectStructure<FullRealizationItems> = [
   "product_variant_id",
   "realization_price",
   "realization_quantity",
+  "note",
   { products: ["name", "id"] },
   { product_variants: ["size", { colors: ["name"] }] },
 ]

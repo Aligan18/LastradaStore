@@ -60,8 +60,12 @@ export const CheckoutTab = () => {
 `
       let totalPrice = 0
       realizationItems.forEach(
-        ({ products, product_variants, realization_price, realization_quantity }, index) => {
-          checkout += `${index + 1}) ${products.name} | ${product_variants.colors.name} | ${product_variants.size}
+        ({ products, product_variants, realization_price, realization_quantity, note }, index) => {
+          const isOtherProduct = products.id === 25
+          const productTitle = isOtherProduct
+            ? `${index + 1}) ${note}`
+            : `${index + 1}) ${products.name} | ${product_variants.colors.name} | ${product_variants.size}`
+          checkout += `${productTitle}
 ${realization_price} тг x ${realization_quantity} = ${realization_price * realization_quantity} тг
 
 `

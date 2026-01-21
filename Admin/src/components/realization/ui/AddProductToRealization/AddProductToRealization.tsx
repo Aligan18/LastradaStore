@@ -1,12 +1,13 @@
 import { ProductSelect, ProductVariantSelect } from "@modules"
 import { FormValueConnector, GridForm, type FormInputs, type FormRowAndCol } from "@shared"
-import { Flex, InputNumber } from "antd"
+import { Flex, Input, InputNumber } from "antd"
 
 export type AddProductToRealizationFormItems = {
   product_id: number
   product_variant_id: number
   realization_price: number
   realization_quantity: number
+  note: string
   earned: number
 }
 
@@ -17,6 +18,7 @@ const grid: FormRowAndCol<AddProductToRealizationFormItems>[] = [
   {
     cols: [{ name: "product_variant_id" }],
   },
+  { cols: [{ name: "note" }] },
   {
     cols: [
       { span: 8, name: "realization_price" },
@@ -49,6 +51,10 @@ const inputs: FormInputs<AddProductToRealizationFormItems> = {
     rules: [{ required: true }],
     label: "Количество",
     input: <InputNumber min={1} />,
+  },
+  note: {
+    label: "Примечание. Если выбрали Другое напишите  Название | Цвет | Размер",
+    input: <Input />,
   },
   earned: {
     label: "Сумма",

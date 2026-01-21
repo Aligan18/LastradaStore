@@ -27,6 +27,8 @@ export type Product = {
   created_at: string
 }
 
+export type ProductsResponse = ResponseAll<Product[]>
+
 export type ColorsResponse = ResponseAll<Colors[]>
 
 export type ProductVariants = {

@@ -31,6 +31,7 @@ const selectRequest: SelectStructure<
     realization_items: [
       "realization_quantity",
       "realization_price",
+      "note",
       { products: ["name", "id"] },
       { product_variants: ["size", { colors: ["name"] }] },
     ],

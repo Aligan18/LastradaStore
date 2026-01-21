@@ -188,6 +188,7 @@ export type Database = {
         Row: {
           earned: number
           id: number
+          note: string | null
           product_id: number
           product_variant_id: number
           realization_id: number
@@ -197,6 +198,7 @@ export type Database = {
         Insert: {
           earned?: number
           id?: number
+          note?: string | null
           product_id: number
           product_variant_id: number
           realization_id: number
@@ -206,6 +208,7 @@ export type Database = {
         Update: {
           earned?: number
           id?: number
+          note?: string | null
           product_id?: number
           product_variant_id?: number
           realization_id?: number

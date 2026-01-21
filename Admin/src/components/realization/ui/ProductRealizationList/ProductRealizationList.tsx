@@ -25,28 +25,47 @@ export const ProductRealizationList = ({
     <List
       itemLayout="horizontal"
       dataSource={realizationItems}
-      renderItem={({ id, products, realization_price, product_variants, realization_quantity }) => (
-        <List.Item
-          key={id}
-          actions={[
-            onChangeQuantity ? (
-              <Counter
-                onDelete={() => onDeleteProduct && onDeleteProduct(id)}
-                count={realization_quantity}
-                onChange={(newQuantity: number) =>
-                  onChangeQuantity({ id, newQuantity, newEarned: newQuantity * realization_price })
-                }
-              />
-            ) : (
-              `${realization_quantity} шт`
-            ),
-          ]}>
-          <List.Item.Meta
-            title={`${products.id} | ${products.name} | ${product_variants.colors.name} | ${product_variants.size}`}
-            description={`${realization_price} тг`}
-          />
-        </List.Item>
-      )}
+      renderItem={({
+        id,
+        products,
+        realization_price,
+        product_variants,
+        realization_quantity,
+        note,
+      }) => {
+        const isOtherProduct = products.id === 25
+
+        return (
+          <List.Item
+            key={id}
+            actions={[
+              onChangeQuantity ? (
+                <Counter
+                  onDelete={() => onDeleteProduct && onDeleteProduct(id)}
+                  count={realization_quantity}
+                  onChange={(newQuantity: number) =>
+                    onChangeQuantity({
+                      id,
+                      newQuantity,
+                      newEarned: newQuantity * realization_price,
+                    })
+                  }
+                />
+              ) : (
+                `${realization_quantity} шт`
+              ),
+            ]}>
+            <List.Item.Meta
+              title={
+                isOtherProduct
+                  ? note
+                  : `${products.id} | ${products.name} | ${product_variants.colors.name} | ${product_variants.size}`
+              }
+              description={`${realization_price} тг`}
+            />
+          </List.Item>
+        )
+      }}
     />
   )
 }

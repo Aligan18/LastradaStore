@@ -25,7 +25,7 @@ export const AddProductToRealizationForm = ({
     <Form layout="vertical" form={form} onFinish={handleSubmit}>
       <Flex vertical justify="flex-start">
         <AddProductToRealization />
-        <Button htmlType="submit">
+        <Button type="primary" htmlType="submit">
           Добавить <ArrowDownOutlined />
         </Button>
       </Flex>

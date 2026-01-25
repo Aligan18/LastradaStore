@@ -12,7 +12,7 @@ import {
   type REALIZATION_STATUS,
 } from "@modules"
 import { CustomTable, DEFAULT_PAGINATION, type Pagination } from "@shared"
-import { Button, Flex, Tabs, type TabsProps } from "antd"
+import { Button, Flex, Tabs, Typography, type TabsProps } from "antd"
 import type { ColumnProps } from "antd/es/table"
 import { useState } from "react"
 import { RealizationStatus, useUpdateRealizationMutation } from "src/modules/realization/api"
@@ -78,66 +78,71 @@ export const DeliveryPage = () => {
   }
 
   return (
-    <CustomTable<FullRealization>
-      className={classes.table}
-      rowKey="id"
-      size={"small"}
-      expandable={{
-        expandedRowRender: (record) => {
-          const items: TabsProps["items"] = [
-            {
-              key: RealizationStatus.PACKAGE,
-              label: <SkinOutlined />,
-              children: (
-                <Flex vertical>
-                  <strong>Упаковка:</strong>
-                  <ProductRealizationList realizationItems={record.realization_items} />
-                  {record.status === RealizationStatus.PACKAGE && (
+    <Flex vertical gap={15}>
+      <Flex justify="center">
+        <Typography.Title level={3}> Доставка</Typography.Title>
+      </Flex>
+      <CustomTable<FullRealization>
+        className={classes.table}
+        rowKey="id"
+        size={"small"}
+        expandable={{
+          expandedRowRender: (record) => {
+            const items: TabsProps["items"] = [
+              {
+                key: RealizationStatus.PACKAGE,
+                label: <SkinOutlined />,
+                children: (
+                  <Flex vertical>
+                    <strong>Упаковка:</strong>
+                    <ProductRealizationList realizationItems={record.realization_items} />
+                    {record.status === RealizationStatus.PACKAGE && (
+                      <Button
+                        variant="outlined"
+                        onClick={() => handleChangeStatus(record.id, RealizationStatus.DELIVERY)}>
+                        Упаковано
+                      </Button>
+                    )}
+                  </Flex>
+                ),
+              },
+              {
+                key: RealizationStatus.DELIVERY,
+                label: <IdcardOutlined />,
+                children: (
+                  <Flex vertical>
+                    <strong>Доставка:</strong>
+                    <AddressInfoView withCopy realization={record} />
                     <Button
                       variant="outlined"
-                      onClick={() => handleChangeStatus(record.id, RealizationStatus.DELIVERY)}>
-                      Упаковано
+                      onClick={() => handleChangeStatus(record.id, RealizationStatus.FINISHED)}>
+                      Отправлено
                     </Button>
-                  )}
-                </Flex>
-              ),
-            },
-            {
-              key: RealizationStatus.DELIVERY,
-              label: <IdcardOutlined />,
-              children: (
-                <Flex vertical>
-                  <strong>Доставка:</strong>
-                  <AddressInfoView withCopy realization={record} />
-                  <Button
-                    variant="outlined"
-                    onClick={() => handleChangeStatus(record.id, RealizationStatus.FINISHED)}>
-                    Отправлено
-                  </Button>
-                </Flex>
-              ),
-            },
-          ]
-          return (
-            <Flex vertical>
-              <Tabs
-                centered
-                key={record.status}
-                defaultActiveKey={record.status}
-                className={classes.tabsContainer}
-                items={items}
-              />
-              <div className={classes.space} />
-            </Flex>
-          )
-        },
-        expandedRowKeys: packageRealization.map((row) => row.id),
-        showExpandColumn: false,
-      }}
-      pagination={{ ...pagination, total }}
-      setPagination={setPagination}
-      dataSource={packageRealization}
-      columns={columns}
-    />
+                  </Flex>
+                ),
+              },
+            ]
+            return (
+              <Flex vertical>
+                <Tabs
+                  centered
+                  key={record.status}
+                  defaultActiveKey={record.status}
+                  className={classes.tabsContainer}
+                  items={items}
+                />
+                <div className={classes.space} />
+              </Flex>
+            )
+          },
+          expandedRowKeys: packageRealization.map((row) => row.id),
+          showExpandColumn: false,
+        }}
+        pagination={{ ...pagination, total }}
+        setPagination={setPagination}
+        dataSource={packageRealization}
+        columns={columns}
+      />
+    </Flex>
   )
 }

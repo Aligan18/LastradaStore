@@ -3,4 +3,5 @@ export const enum RoutePath {
   PRODUCTS = "/products",
   REALIZATION = "/realization",
   DELIVERY = "/delivery",
+  REALIZATION_HISTORY = "/realization_history",
 }

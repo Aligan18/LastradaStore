@@ -3,6 +3,12 @@
   height: 100%;
   min-height: 100vh;
   padding: 0;
+
+  :global(.ant-layout-sider-zero-width-trigger) {
+    top: 5px !important;
+    height: 48px;
+    line-height: 48px;
+  }
 }
 
 .content {

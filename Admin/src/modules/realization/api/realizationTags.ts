@@ -3,6 +3,7 @@ export enum RealizationTags {
   ACTIVE_REALIZATIONS = "ACTIVE_REALIZATIONS",
   REALIZATION_BY_ID = "REALIZATION_BY_ID",
   PACKAGE_REALIZATIONS = "PACKAGE_REALIZATIONS",
+  FINISHED_REALIZATIONS = "FINISHED_REALIZATIONS",
 }
 
 export const realizationTagsArray = Object.values(RealizationTags)

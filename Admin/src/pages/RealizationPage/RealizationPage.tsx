@@ -5,7 +5,9 @@ import { Flex, Typography } from "antd"
 export const RealizationPage = () => {
   return (
     <Flex vertical gap={10}>
-      <Typography.Title level={4}>Активные продажи</Typography.Title>
+      <Flex justify="center">
+        <Typography.Title level={4}>Активные продажи</Typography.Title>
+      </Flex>
       <Flex vertical gap={15}>
         <AddRealizationModal />
         <RealizationTable />

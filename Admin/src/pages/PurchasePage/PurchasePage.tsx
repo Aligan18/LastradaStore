@@ -5,10 +5,10 @@ import { Flex, Typography } from "antd"
 export const PurchasePage = () => {
   return (
     <Flex orientation="vertical" gap={20}>
-      <Flex justify="space-between" align="center">
+      <Flex justify="center" align="center">
         <Typography.Title level={4}>История закупа</Typography.Title>
-        <AddPurchaseModal />
       </Flex>
+      <AddPurchaseModal />
       <PurchaseTable />
     </Flex>
   )

@@ -5,11 +5,13 @@ import { CopyOutlined } from "@ant-design/icons"
 
 const titleByDeliveryKey: Record<keyof CustomerDeliveryFormItems, string> = {
   client_name: "ФИО",
-  delivery_number: "Номер телефона",
   city: "Город",
   postal_code: "Индекс",
+  delivery_number: "Номер телефона",
   address: "Адрес",
 }
+
+const keyWithCopy = ["delivery_number", "address"]
 
 const deliveryKeys = Object.keys(titleByDeliveryKey) as (keyof typeof titleByDeliveryKey)[]
 
@@ -40,7 +42,7 @@ export const AddressInfoView = ({ realization, withCopy = false }: AddressInfoVi
       <Col span={14}>
         <Flex justify="end" align="center" gap={10}>
           <Typography.Text>{realization[key]}</Typography.Text>
-          {withCopy && (
+          {withCopy && keyWithCopy.includes(key) && (
             <Button onClick={() => handleCopy(realization[key])}>
               <CopyOutlined />
             </Button>

@@ -40,6 +40,10 @@ export const ProductSelect = ({
                 .includes(input.toLowerCase()),
             optionFilterProp: "label",
           }}
+          onSelect={(value, option) => {
+            if (props.onSelect) props.onSelect(value, option)
+            ;(document.activeElement as HTMLElement)?.blur()
+          }}
           {...props}
           options={productOptions}
         />

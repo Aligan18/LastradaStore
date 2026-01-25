@@ -21,6 +21,7 @@ export {
   AddCustomerDelivery,
   AddAccountInfoForm,
   CheckoutTab,
+  RealizationHistoryTable,
 } from "./ui"
 export {
   realizationSlice,

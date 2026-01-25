@@ -7,6 +7,7 @@ export { useGetRealizationByIdQuery } from "./get/getRealizationById"
 export { useUpdateRealizationItemsMutation } from "./put/updateRealizationItems"
 export { useDeleteRealizationItemsMutation } from "./delete/deleteRealizationItem"
 export { useGetPackageRealizationQuery } from "./get/getPackageRealization"
+export { useGetFinishedRealizationQuery } from "./get/getFinishedRealization"
 
 export { realizationApi } from "./realizationApi"
 

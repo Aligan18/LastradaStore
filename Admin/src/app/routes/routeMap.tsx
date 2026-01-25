@@ -1,4 +1,4 @@
-import { DeliveryPage, PurchasePage, RealizationPage } from "@pages"
+import { DeliveryPage, PurchasePage, RealizationHistoryPage, RealizationPage } from "@pages"
 import { RoutePath } from "./constants/routePath"
 import { createRoute } from "./utils/createRoute"
 import type { RouteAndMenuProps } from "./types/route"
@@ -22,5 +22,9 @@ export const routeMap: RouteMap = {
   }),
   [RoutePath.PRODUCTS]: createRoute({
     element: <div>Products</div>,
+  }),
+  [RoutePath.REALIZATION_HISTORY]: createRoute({
+    element: <RealizationHistoryPage />,
+    menuLabel: "История заказов",
   }),
 }

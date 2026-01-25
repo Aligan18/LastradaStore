@@ -8,6 +8,7 @@ import {
   getMessengerTypeSelector,
   useCreateClientMutation,
   RealizationSteps,
+  useGetRealizationItemsQuery,
 } from "@modules"
 import { Button, Divider, Form, Skeleton, type FormInstance } from "antd"
 import { useSelector } from "react-redux"
@@ -54,6 +55,16 @@ export const CustomerDeliveryModule = ({ form }: CustomerDeliveryModuleProps) =>
     },
   )
 
+  const { realizationItems } = useGetRealizationItemsQuery(
+    { id: realizationId as number },
+    {
+      skip: !realizationId,
+      selectFromResult: ({ data }) => ({
+        realizationItems: data?.data ?? null,
+      }),
+    },
+  )
+
   const { client, clientInitialForm, isSuccess } = useGetClientByAccountQuery(
     realization && messenger && deriveAccountByMessenger(realization, messenger, true),
     {
@@ -83,10 +94,15 @@ export const CustomerDeliveryModule = ({ form }: CustomerDeliveryModuleProps) =>
       ).data?.id
     }
 
+    const nextStep =
+      realizationItems?.length === 0 ? RealizationSteps.ADD_PRODUCTS : RealizationSteps.PAYMENT
+
+    console.log(realizationItems?.length, nextStep)
+
     if (client_id && realizationId) {
       updateRealization({
         id: realizationId,
-        payload: { ...values, client_id, steps: RealizationSteps.PAYMENT },
+        payload: { ...values, client_id, steps: nextStep },
       })
     }
   }

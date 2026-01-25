@@ -13,6 +13,7 @@ export const ProductSelect = ({
   groupName,
   withFormItems = false,
   formItemProps,
+  onChange,
   ...props
 }: ProductSelectProps) => {
   const { productOptions } = useGetProductsQuery(undefined, {
@@ -37,6 +38,7 @@ export const ProductSelect = ({
               String(option?.label ?? "")
                 .toLowerCase()
                 .includes(input.toLowerCase()),
+            optionFilterProp: "label",
           }}
           {...props}
           options={productOptions}
@@ -53,6 +55,7 @@ export const ProductSelect = ({
             .toLowerCase()
             .includes(input.toLowerCase()),
       }}
+      onChange={onChange}
       {...props}
       options={productOptions}
     />

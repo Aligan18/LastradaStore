@@ -1,0 +1,32 @@
+# node / deps
+
+node_modules/
+
+# env
+
+.env
+.env.local
+.env.\*
+
+# logs
+
+\*.log
+
+# system
+
+.DS_Store
+
+# git
+
+.git/
+.gitignore
+
+# tests & mocks
+
+**tests**/
+_.spec.ts
+_.test.ts
+
+# generated
+
+coverage/

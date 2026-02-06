@@ -1,18 +1,14 @@
 import { CheckOutlined, IdcardOutlined, SkinOutlined } from "@ant-design/icons"
+import { MessengerIcon, ProductRealizationList, ReturnToChatButton } from "@components"
 import {
-  AddressInfoView,
-  MessengerIcon,
-  ProductRealizationList,
-  ReturnToChatButton,
-} from "@components"
-import {
+  DeliverySendModal,
   deriveAccountByMessenger,
   useGetPackageRealizationQuery,
   type FullRealization,
   type REALIZATION_STATUS,
 } from "@modules"
 import { CustomTable, DEFAULT_PAGINATION, type Pagination } from "@shared"
-import { Button, Flex, Modal, Tabs, Tag, Typography, type TabsProps } from "antd"
+import { Button, Flex, Tabs, Tag, Typography, type TabsProps } from "antd"
 import type { ColumnProps } from "antd/es/table"
 import { useState } from "react"
 import { RealizationStatus, useUpdateRealizationMutation } from "src/modules/realization/api"
@@ -21,7 +17,7 @@ import classes from "./DeliveryPage.module.scss"
 
 export const DeliveryPage = () => {
   const [pagination, setPagination] = useState<Pagination>(DEFAULT_PAGINATION)
-  const [isFinishModalOpen, setIsFinishModalOpen] = useState(false)
+
   const { packageRealization, total } = useGetPackageRealizationQuery(
     { pagination },
     {
@@ -110,23 +106,7 @@ export const DeliveryPage = () => {
               {
                 key: RealizationStatus.DELIVERY,
                 label: <IdcardOutlined />,
-                children: (
-                  <Flex vertical>
-                    <Modal
-                      title="Вы отправили по адресу :"
-                      closable={{ "aria-label": "Custom Close Button" }}
-                      open={isFinishModalOpen}
-                      onOk={() => handleChangeStatus(record.id, RealizationStatus.FINISHED)}
-                      onCancel={() => setIsFinishModalOpen(false)}>
-                      <Typography.Title level={5}>{record.address}</Typography.Title>
-                    </Modal>
-                    <strong>Доставка:</strong>
-                    <AddressInfoView withCopy realization={record} />
-                    <Button variant="outlined" onClick={() => setIsFinishModalOpen(true)}>
-                      Отправлено
-                    </Button>
-                  </Flex>
-                ),
+                children: <DeliverySendModal realization={record} />,
               },
             ]
             return (

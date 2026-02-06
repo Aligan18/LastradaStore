@@ -22,6 +22,7 @@ export {
   AddAccountInfoForm,
   CheckoutTab,
   RealizationHistoryTable,
+  DeliverySendModal,
 } from "./ui"
 export {
   realizationSlice,

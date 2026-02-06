@@ -37,6 +37,7 @@ export {
   type FullRealization,
   type REALIZATION_STATUS,
   RealizationHistoryTable,
+  DeliverySendModal,
 } from "./realization"
 
 export { useCreateClientMutation, useGetClientByAccountQuery, clientApi } from "./client"

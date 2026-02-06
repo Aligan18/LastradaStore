@@ -20,7 +20,7 @@ export const CheckoutTab = () => {
   const realizationId = useSelector(getRealizationIdSelector)
   const currentMessenger = useSelector(getMessengerTypeSelector)
   const currentAccount = useSelector(getCurrentAccountSelector)
-  const [updateRealization, { error, isError }] = useUpdateRealizationMutation()
+  const [updateRealization, { isLoading, error, isError }] = useUpdateRealizationMutation()
   const dispatch = useAppDispatch()
 
   const { realization } = useGetRealizationByIdQuery(realizationId as number, {
@@ -123,7 +123,7 @@ ${realization_price} тг x ${realization_quantity} = ${realization_price * real
           ))}
         </Typography.Text>
       )}
-      <Button type="primary" onClick={handleApprovePayment}>
+      <Button type="primary" onClick={handleApprovePayment} disabled={isLoading}>
         Подтвердить оплату
       </Button>
     </Flex>

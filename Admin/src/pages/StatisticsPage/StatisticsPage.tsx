@@ -1,8 +1,11 @@
-import { useGetRevenueStatisticQuery } from "@modules"
+import { RevenueStatisticsTable } from "@modules"
+import { Flex, Typography } from "antd"
 
 export const StatisticsPage = () => {
-  const { data } = useGetRevenueStatisticQuery({ p_period: "day" })
-
-  console.log(data)
-  return <div>StatisticsPage</div>
+  return (
+    <Flex gap={15} vertical align="center">
+      <Typography.Title level={4}>Статистика</Typography.Title>
+      <RevenueStatisticsTable />
+    </Flex>
+  )
 }

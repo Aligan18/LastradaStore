@@ -67,7 +67,6 @@ export const apiAdapter = async <
 
       case Methods.POSTGRES_FUNCTION:
         response = await supabase.rpc(table, payload)
-
         break
 
       default:

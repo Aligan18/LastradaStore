@@ -42,4 +42,4 @@ export {
 
 export { useCreateClientMutation, useGetClientByAccountQuery, clientApi } from "./client"
 
-export { statisticsApi, useGetRevenueStatisticQuery } from "./statistics"
+export { statisticsApi, useGetRevenueStatisticQuery, RevenueStatisticsTable } from "./statistics"

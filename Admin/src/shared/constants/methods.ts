@@ -4,4 +4,5 @@ export enum Methods {
   CREATE = "CREATE",
   UPDATE = "UPDATE",
   DELETE = "DELETE",
+  POSTGRES_FUNCTION = "Postgres_function",
 }

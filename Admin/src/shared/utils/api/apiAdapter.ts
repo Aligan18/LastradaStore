@@ -65,6 +65,11 @@ export const apiAdapter = async <
         response = await supabase.from(table).delete().eq("id", id).select()
         break
 
+      case Methods.POSTGRES_FUNCTION:
+        response = await supabase.rpc(table, payload)
+
+        break
+
       default:
         throw new Error("Unknown method")
     }

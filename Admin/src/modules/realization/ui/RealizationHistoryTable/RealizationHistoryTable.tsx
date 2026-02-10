@@ -46,7 +46,6 @@ export const RealizationHistoryTable = () => {
       title: "Дата",
       dataIndex: "realization_date",
       render: (date: string) => {
-        console.log(date)
         return new Date(date).toLocaleDateString()
       },
     },

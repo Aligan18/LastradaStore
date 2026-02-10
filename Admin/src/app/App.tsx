@@ -7,7 +7,7 @@ function App() {
     <AppProvider>
       <Routes>
         {routeItems.map((route) => (
-          <Route {...route} />
+          <Route key={route.path} {...route} />
         ))}
       </Routes>
     </AppProvider>

@@ -8,4 +8,5 @@ export const enum Tables {
   REALIZATION_ITEMS = "realization_items",
   REALIZATION = "realizations",
   CLIENTS = "clients",
+  STATISTICS_REVENUE = "statistics_revenue",
 }

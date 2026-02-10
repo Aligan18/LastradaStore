@@ -1,9 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit"
-import { clientApi, productApi, purchaseApi, realizationApi, realizationSlice } from "@modules"
+import {
+  clientApi,
+  productApi,
+  purchaseApi,
+  realizationApi,
+  realizationSlice,
+  statisticsApi,
+} from "@modules"
 
 export const store = configureStore({
   reducer: {
     realizationSlice,
+    [statisticsApi.reducerPath]: statisticsApi.reducer,
     [clientApi.reducerPath]: clientApi.reducer,
     [realizationApi.reducerPath]: realizationApi.reducer,
     [productApi.reducerPath]: productApi.reducer,
@@ -16,6 +24,7 @@ export const store = configureStore({
       purchaseApi.middleware,
       realizationApi.middleware,
       clientApi.middleware,
+      statisticsApi.middleware,
     ),
 })
 

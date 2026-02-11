@@ -7,6 +7,7 @@ export {
   ReturnToChatButton,
   MessengerIcon,
   AddressInfoView,
+  OrderNoteView,
 } from "./realization"
 export type { AddProductToRealizationFormItems, CustomerDeliveryFormItems } from "./realization"
 

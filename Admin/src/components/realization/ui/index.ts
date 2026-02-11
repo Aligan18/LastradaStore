@@ -8,3 +8,4 @@ export {
 export { ReturnToChatButton } from "./ReturnToChatButton/ReturnToChatButton"
 export { MessengerIcon } from "./MessengerIcon/MessengerIcon"
 export { AddressInfoView } from "./AddressInfoView/AddressInfoView"
+export { OrderNoteView } from "./OrderNoteView/OrderNoteView"

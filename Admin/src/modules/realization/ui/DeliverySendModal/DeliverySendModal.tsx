@@ -1,4 +1,4 @@
-import { AddressInfoView } from "@components"
+import { AddressInfoView, OrderNoteView } from "@components"
 import { Button, Flex, message, Modal, Typography } from "antd"
 import { useState } from "react"
 import {
@@ -35,6 +35,7 @@ export const DeliverySendModal = ({ realization }: Props) => {
       </Modal>
       <strong>Доставка:</strong>
       <AddressInfoView withCopy realization={realization} />
+      <OrderNoteView note={realization.note} />
       <Button variant="outlined" onClick={() => setIsFinishModalOpen(true)}>
         Отправлено
       </Button>

@@ -1,5 +1,5 @@
 export { ReducerPath } from "./reducerPath"
 export { Methods } from "./methods"
-export { Tables } from "./database"
+export { Tables, OTHER_PRODUCT_ID, OTHER_VARIANT_ID } from "./database"
 export { Size } from "./size"
 export { DEFAULT_PAGINATION } from "./pagination"

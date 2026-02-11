@@ -1,5 +1,13 @@
 export { supabase, antdConfig } from "./configs"
-export { Tables, Methods, ReducerPath, Size, DEFAULT_PAGINATION } from "./constants"
+export {
+  Tables,
+  Methods,
+  ReducerPath,
+  Size,
+  DEFAULT_PAGINATION,
+  OTHER_PRODUCT_ID,
+  OTHER_VARIANT_ID,
+} from "./constants"
 export {
   Navbar,
   GridForm,

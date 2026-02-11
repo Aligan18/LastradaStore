@@ -7,6 +7,7 @@ import { deriveAccountByMessenger } from "../../utils"
 import {
   AddressInfoView,
   MessengerIcon,
+  OrderNoteView,
   ProductRealizationList,
   ReturnToChatButton,
 } from "@components"
@@ -86,6 +87,7 @@ export const RealizationHistoryTable = () => {
                 <Flex vertical>
                   <strong>Упаковка:</strong>
                   <ProductRealizationList realizationItems={record.realization_items} />
+                  <OrderNoteView note={record.note} />
                 </Flex>
               ),
             },
@@ -96,6 +98,7 @@ export const RealizationHistoryTable = () => {
                 <Flex vertical>
                   <strong>Доставка:</strong>
                   <AddressInfoView withCopy realization={record} />
+                  <OrderNoteView note={record.note} />
                 </Flex>
               ),
             },

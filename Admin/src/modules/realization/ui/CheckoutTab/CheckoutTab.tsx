@@ -15,6 +15,8 @@ import {
 import { AddressInfoView, ProductRealizationList } from "@components"
 import { calculateTotalPrice } from "../../utils"
 import { isCustomApiError, sendToMessenger, useAppDispatch } from "@shared"
+import TextArea from "antd/es/input/TextArea"
+import { useState } from "react"
 
 export const CheckoutTab = () => {
   const realizationId = useSelector(getRealizationIdSelector)
@@ -22,6 +24,8 @@ export const CheckoutTab = () => {
   const currentAccount = useSelector(getCurrentAccountSelector)
   const [updateRealization, { isLoading, error, isError }] = useUpdateRealizationMutation()
   const dispatch = useAppDispatch()
+
+  const [realizationNote, setRealizationNote] = useState<string>()
 
   const { realization } = useGetRealizationByIdQuery(realizationId as number, {
     skip: !realizationId,
@@ -88,7 +92,7 @@ ${realization_price} тг x ${realization_quantity} = ${realization_price * real
     if (realizationId) {
       const response = await updateRealization({
         id: realizationId,
-        payload: { status: RealizationStatus.PACKAGE },
+        payload: { status: RealizationStatus.PACKAGE, note: realizationNote },
       })
 
       if (!response.error) {
@@ -108,6 +112,11 @@ ${realization_price} тг x ${realization_quantity} = ${realization_price * real
         <Typography.Title level={5} type="success">
           {calculateTotalPrice(realizationItems)} тг
         </Typography.Title>
+      </Flex>
+      <Divider size="middle" />
+      <Flex vertical>
+        <Typography.Title level={5}>Комментарий к заказу:</Typography.Title>
+        <TextArea value={realizationNote} onChange={(e) => setRealizationNote(e.target.value)} />
       </Flex>
       <Button onClick={handleSendCheckout}> Отправить чек клиенту </Button>
       <Divider size="middle" />

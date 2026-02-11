@@ -10,3 +10,6 @@ export const enum Tables {
   CLIENTS = "clients",
   STATISTICS_REVENUE = "statistics_revenue",
 }
+
+export const OTHER_PRODUCT_ID = 25
+export const OTHER_VARIANT_ID = 24

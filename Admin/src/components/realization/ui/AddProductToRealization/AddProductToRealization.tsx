@@ -1,6 +1,12 @@
 import { ProductSelect, ProductVariantSelect } from "@modules"
-import { FormValueConnector, GridForm, type FormInputs, type FormRowAndCol } from "@shared"
-import { Flex, Input, InputNumber } from "antd"
+import {
+  FormValueConnector,
+  GridForm,
+  OTHER_PRODUCT_ID,
+  type FormInputs,
+  type FormRowAndCol,
+} from "@shared"
+import { Flex, Form, Input, InputNumber, type FormInstance } from "antd"
 
 export type AddProductToRealizationFormItems = {
   product_id: number
@@ -11,23 +17,6 @@ export type AddProductToRealizationFormItems = {
   earned: number
 }
 
-const grid: FormRowAndCol<AddProductToRealizationFormItems>[] = [
-  {
-    cols: [{ name: "product_id" }],
-  },
-  {
-    cols: [{ name: "product_variant_id" }],
-  },
-  { cols: [{ name: "note" }] },
-  {
-    cols: [
-      { span: 8, name: "realization_price" },
-      { span: 8, name: "realization_quantity" },
-      { span: 8, name: "earned" },
-    ],
-  },
-]
-
 const inputs: FormInputs<AddProductToRealizationFormItems> = {
   product_id: { input: <ProductSelect placeholder={"Товар"} /> },
   product_variant_id: {
@@ -36,9 +25,11 @@ const inputs: FormInputs<AddProductToRealizationFormItems> = {
         valueByName="product_id"
         name="product_variant_id"
         rules={[{ required: true }]}>
-        {(productId) => (
-          <ProductVariantSelect placeholder={"Вариант"} productId={productId} key={productId} />
-        )}
+        {(productId) =>
+          productId !== OTHER_PRODUCT_ID && (
+            <ProductVariantSelect placeholder={"Вариант"} productId={productId} key={productId} />
+          )
+        }
       </FormValueConnector>
     ),
   },
@@ -53,8 +44,7 @@ const inputs: FormInputs<AddProductToRealizationFormItems> = {
     input: <InputNumber min={1} />,
   },
   note: {
-    label: "Примечание. Если выбрали Другое напишите  Название | Цвет | Размер",
-    input: <Input />,
+    input: <Input placeholder="Название | Цвет | Размер" />,
   },
   earned: {
     label: "Сумма",
@@ -72,6 +62,27 @@ const inputs: FormInputs<AddProductToRealizationFormItems> = {
   },
 }
 
-export const AddProductToRealization = () => {
+type AddProductToRealizationProps = {
+  form: FormInstance
+}
+
+export const AddProductToRealization = ({ form }: AddProductToRealizationProps) => {
+  const productId = Form.useWatch("product_id", form)
+  const grid: FormRowAndCol<AddProductToRealizationFormItems>[] = [
+    {
+      cols: [{ name: "product_id" }],
+    },
+    {
+      cols: [{ name: "product_variant_id", hidden: productId === OTHER_PRODUCT_ID }],
+    },
+    { cols: [{ name: "note", hidden: productId !== OTHER_PRODUCT_ID }] },
+    {
+      cols: [
+        { span: 8, name: "realization_price" },
+        { span: 8, name: "realization_quantity" },
+        { span: 8, name: "earned" },
+      ],
+    },
+  ]
   return <GridForm<AddProductToRealizationFormItems> grid={grid} inputs={inputs} />
 }

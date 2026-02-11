@@ -1,5 +1,5 @@
 import { CheckOutlined, IdcardOutlined, SkinOutlined } from "@ant-design/icons"
-import { MessengerIcon, ProductRealizationList, ReturnToChatButton } from "@components"
+import { MessengerIcon, OrderNoteView, ProductRealizationList, ReturnToChatButton } from "@components"
 import {
   DeliverySendModal,
   deriveAccountByMessenger,
@@ -93,6 +93,7 @@ export const DeliveryPage = () => {
                   <Flex vertical>
                     <strong>Упаковка:</strong>
                     <ProductRealizationList realizationItems={record.realization_items} />
+                    <OrderNoteView note={record.note} />
                     {record.status === RealizationStatus.PACKAGE && (
                       <Button
                         variant="outlined"

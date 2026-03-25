@@ -33,8 +33,6 @@ export const RealizationHistoryTable = () => {
     },
   )
 
-  console.log(finishedRealization)
-
   const columns: ColumnProps<FullRealization>[] = [
     {
       title: "№",

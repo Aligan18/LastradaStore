@@ -27,7 +27,7 @@ export const SalaryPage = () => {
   const currentUserRole = useSelector(getRolesSelector)
   const isAdmin = currentUserRole.includes(AppRole.ADMIN)
   const currentUser = useSelector(getUserSelector)
-  const [selectedUserId, setSelectedUserId] = useState<string | null>(isAdmin ? null : currentUser?.id)
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(isAdmin ? null : currentUser?.id ?? null)
   const [dateRange, setDateRange] = useState<[Dayjs | null, Dayjs | null] | null>(null)
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
 

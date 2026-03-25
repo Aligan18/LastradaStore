@@ -1,6 +1,7 @@
 import { AppProvider } from "./providers"
-import { Route, Routes } from "react-router"
+import { Navigate, Route, Routes } from "react-router"
 import { routeItems } from "./routes/routeItems"
+import { RoutePath } from "./routes/constants/routePath"
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
         {routeItems.map((route) => (
           <Route key={route.path} {...route} />
         ))}
+        <Route path="*" element={<Navigate to={RoutePath.REALIZATION} replace />} />
       </Routes>
     </AppProvider>
   )

@@ -6,5 +6,7 @@ export const statisticsApi = createApi({
   reducerPath: ReducerPath.STATISTICS,
   baseQuery: baseQueryWithAdapter,
   tagTypes: statisticsTagsArray,
+  refetchOnFocus: true,
+  refetchOnReconnect: true,
   endpoints: () => ({}),
 })

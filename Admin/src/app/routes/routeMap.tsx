@@ -1,9 +1,11 @@
 import {
   DeliveryPage,
+  LoginPage,
   PurchasePage,
   RealizationHistoryPage,
   RealizationPage,
   StatisticsPage,
+  SalaryPage,
 } from "@pages"
 import { RoutePath } from "./constants/routePath"
 import { createRoute } from "./utils/createRoute"
@@ -12,6 +14,10 @@ import type { RouteAndMenuProps } from "./types/route"
 type RouteMap = Record<RoutePath, RouteAndMenuProps>
 
 export const routeMap: RouteMap = {
+  [RoutePath.LOGIN]: createRoute({
+    element: <LoginPage />,
+  }),
+
   [RoutePath.REALIZATION]: createRoute({
     element: <RealizationPage />,
     menuLabel: "Продажи",
@@ -37,5 +43,10 @@ export const routeMap: RouteMap = {
   [RoutePath.STATISTICS_REVENUE]: createRoute({
     element: <StatisticsPage />,
     menuLabel: "Статистика",
+  }),
+
+  [RoutePath.SALARY]: createRoute({
+    element: <SalaryPage />,
+    menuLabel: "Зарплаты",
   }),
 }

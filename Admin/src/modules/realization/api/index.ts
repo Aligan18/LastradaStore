@@ -11,6 +11,12 @@ export { useGetFinishedRealizationQuery } from "./get/getFinishedRealization"
 
 export { realizationApi } from "./realizationApi"
 
+export {
+  upsertRealizationRoleSalary,
+  getRealizationRoleUsers,
+  getRealizationIdsByUserRole,
+} from "./utils/realizationRoleSalaryHelper"
+
 export { RealizationSteps, MessengerTypes, RealizationStatus } from "./types"
 export type {
   FullRealizationItems,

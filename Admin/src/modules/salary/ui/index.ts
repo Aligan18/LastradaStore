@@ -1,0 +1,5 @@
+export { SalarySettingsForm } from "./SalarySettingsForm/SalarySettingsForm"
+export { SalaryCalculationCard } from "./SalaryCalculationCard/SalaryCalculationCard"
+export { PendingRealizationsTable } from "./PendingRealizationsTable/PendingRealizationsTable"
+export { SalaryPaymentModal } from "./SalaryPaymentModal/SalaryPaymentModal"
+export { SalaryPaymentsHistory } from "./SalaryPaymentsHistory/SalaryPaymentsHistory"

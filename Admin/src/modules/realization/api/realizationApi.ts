@@ -6,5 +6,7 @@ export const realizationApi = createApi({
   reducerPath: ReducerPath.REALIZATION,
   baseQuery: baseQueryWithAdapter,
   tagTypes: realizationTagsArray,
+  refetchOnFocus: true,
+  refetchOnReconnect: true,
   endpoints: () => ({}),
 })

@@ -6,5 +6,7 @@ export const purchaseApi = createApi({
   reducerPath: ReducerPath.PURCHASE,
   baseQuery: baseQueryWithAdapter,
   tagTypes: purchaseTagsArray,
+  refetchOnFocus: true,
+  refetchOnReconnect: true,
   endpoints: () => ({}),
 })

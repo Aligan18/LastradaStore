@@ -7,5 +7,7 @@ export const clientApi = createApi({
   reducerPath: ReducerPath.CLIENT,
   baseQuery: baseQueryWithAdapter,
   tagTypes: clientTagsArray,
+  refetchOnFocus: true,
+  refetchOnReconnect: true,
   endpoints: () => ({}),
 })

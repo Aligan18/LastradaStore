@@ -50,6 +50,7 @@ export const RealizationHistoryTable = () => {
         return new Date(date).toLocaleDateString()
       },
     },
+    { title: "Менеджер", dataIndex: "manager", render: (manager) => manager?.user_name },
     {
       title: "Чат",
       key: "in_chat",

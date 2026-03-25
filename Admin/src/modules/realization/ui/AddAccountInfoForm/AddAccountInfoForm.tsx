@@ -11,6 +11,8 @@ import {
 import { useSelector } from "react-redux"
 import { getRealizationIdSelector } from "../../store"
 import { deriveAccountByMessenger } from "../../utils"
+import { getUserSelector } from "@modules"
+import { upsertRealizationRoleSalary } from "../../api/utils/realizationRoleSalaryHelper"
 
 type FieldsItems = {
   whats_app_account: string
@@ -30,6 +32,7 @@ const getInitialForm = (data: Realization | undefined) => {
 
 export const AddAccountInfoForm = () => {
   const dispatch = useAppDispatch()
+  const currentUser = useSelector(getUserSelector)
   const [createRealization] = useCreateRealizationMutation()
   const [updateRealization] = useUpdateRealizationMutation()
   const realizationId = useSelector(getRealizationIdSelector)
@@ -61,9 +64,18 @@ export const AddAccountInfoForm = () => {
     dispatch(setCurrentAccount(currentAccount))
 
     if (!realizationId) {
-      const newRealizationId =
-        (await createRealization({ ...values, messenger: currentMessengerType })).data?.data.id ??
-        null
+      const result = await createRealization({
+        ...values,
+        messenger: currentMessengerType,
+      })
+
+      const newRealizationId = result.data?.data.id ?? null
+
+      if (newRealizationId && currentUser?.id) {
+        // Создаем запись о том, что этот пользователь - менеджер данного заказа
+        await upsertRealizationRoleSalary(newRealizationId, currentUser.id, "manager")
+      }
+
       dispatch(setCurrentRealizationId(newRealizationId))
     } else {
       updateRealization({

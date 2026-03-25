@@ -186,31 +186,37 @@ export type Database = {
       }
       realization_items: {
         Row: {
+          cost_price: number | null
           earned: number
           id: number
           note: string | null
           product_id: number
           product_variant_id: number
+          profit: number | null
           realization_id: number
           realization_price: number
           realization_quantity: number
         }
         Insert: {
+          cost_price?: number | null
           earned?: number
           id?: number
           note?: string | null
           product_id: number
           product_variant_id: number
+          profit?: number | null
           realization_id: number
           realization_price?: number
           realization_quantity: number
         }
         Update: {
+          cost_price?: number | null
           earned?: number
           id?: number
           note?: string | null
           product_id?: number
           product_variant_id?: number
+          profit?: number | null
           realization_id?: number
           realization_price?: number
           realization_quantity?: number
@@ -236,6 +242,64 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "realizations"
             referencedColumns: ["id"]
+          },
+        ]
+      }
+      realization_role_salaries: {
+        Row: {
+          created_at: string | null
+          id: number
+          is_paid: boolean | null
+          payment_id: number | null
+          realization_id: number
+          role: Database["public"]["Enums"]["app_role"]
+          salary_amount: number | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number
+          is_paid?: boolean | null
+          payment_id?: number | null
+          realization_id: number
+          role: Database["public"]["Enums"]["app_role"]
+          salary_amount?: number | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: number
+          is_paid?: boolean | null
+          payment_id?: number | null
+          realization_id?: number
+          role?: Database["public"]["Enums"]["app_role"]
+          salary_amount?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "realization_role_salaries_payment_id_fkey"
+            columns: ["payment_id"]
+            isOneToOne: false
+            referencedRelation: "salary_payments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "realization_role_salaries_realization_id_fkey"
+            columns: ["realization_id"]
+            isOneToOne: false
+            referencedRelation: "realizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "realization_role_salaries_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user_roles"
+            referencedColumns: ["user_id"]
           },
         ]
       }
@@ -298,14 +362,204 @@ export type Database = {
           },
         ]
       }
+      salary_payments: {
+        Row: {
+          amount: number
+          calculation_type: string
+          calculation_value: number | null
+          created_at: string | null
+          id: number
+          note: string | null
+          payment_date: string
+          period_from: string
+          period_to: string
+          realization_count: number
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          calculation_type: string
+          calculation_value?: number | null
+          created_at?: string | null
+          id?: number
+          note?: string | null
+          payment_date?: string
+          period_from: string
+          period_to: string
+          realization_count: number
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          calculation_type?: string
+          calculation_value?: number | null
+          created_at?: string | null
+          id?: number
+          note?: string | null
+          payment_date?: string
+          period_from?: string
+          period_to?: string
+          realization_count?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "salary_payments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user_roles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      salary_settings: {
+        Row: {
+          calculation_type: string
+          created_at: string | null
+          fixed_amount: number | null
+          id: number
+          is_active: boolean | null
+          only_own_orders: boolean
+          percentage: number | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          calculation_type: string
+          created_at?: string | null
+          fixed_amount?: number | null
+          id?: number
+          is_active?: boolean | null
+          only_own_orders?: boolean
+          percentage?: number | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          calculation_type?: string
+          created_at?: string | null
+          fixed_amount?: number | null
+          id?: number
+          is_active?: boolean | null
+          only_own_orders?: boolean
+          percentage?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "salary_settings_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "user_roles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string | null
+          id: number
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+          user_name: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+          user_name?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: number
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+          user_name?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
-      [_ in never]: never
+      realization_statistics: {
+        Row: {
+          client_id: number | null
+          cost_price: number | null
+          earned: number | null
+          id: number | null
+          margin_percent: number | null
+          messenger: Database["public"]["Enums"]["messenger_type"] | null
+          product_id: number | null
+          product_variant_id: number | null
+          profit: number | null
+          realization_date: string | null
+          realization_id: number | null
+          realization_price: number | null
+          realization_quantity: number | null
+          status: Database["public"]["Enums"]["realization_status"] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "realization_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "realization_items_product_variant_id_fkey"
+            columns: ["product_variant_id"]
+            isOneToOne: false
+            referencedRelation: "product_variants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "realization_items_realization_id_fkey"
+            columns: ["realization_id"]
+            isOneToOne: false
+            referencedRelation: "realizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "realizations_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
-      [_ in never]: never
+      calculate_weighted_avg_cost: {
+        Args: { variant_id: number }
+        Returns: number
+      }
+      is_admin: { Args: never; Returns: boolean }
+      recalculate_profit_for_variant: {
+        Args: { variant_id: number }
+        Returns: undefined
+      }
+      statistics_revenue:
+        | {
+            Args: never
+            Returns: {
+              period: string
+              revenue: number
+            }[]
+          }
+        | {
+            Args: { p_from?: string; p_period: string; p_to?: string }
+            Returns: {
+              order_count: number
+              period: string
+              revenue: number
+            }[]
+          }
     }
     Enums: {
+      app_role: "admin" | "manager" | "packer"
       messenger_type: "WhatsApp" | "Instagram"
       realization_status: "active" | "package" | "finished" | "delivery"
       realization_steps: "add_products" | "client_info" | "payment"
@@ -437,6 +691,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      app_role: ["admin", "manager", "packer"],
       messenger_type: ["WhatsApp", "Instagram"],
       realization_status: ["active", "package", "finished", "delivery"],
       realization_steps: ["add_products", "client_info", "payment"],

@@ -7,16 +7,29 @@ import {
   type FullRealization,
   type REALIZATION_STATUS,
 } from "../../api"
+import { useSelector } from "react-redux"
+import { getUserSelector } from "@modules"
+import { upsertRealizationRoleSalary } from "../../api/utils/realizationRoleSalaryHelper"
 
 type Props = { realization: FullRealization }
 
 export const DeliverySendModal = ({ realization }: Props) => {
   const [isFinishModalOpen, setIsFinishModalOpen] = useState(false)
   const [updateRealization] = useUpdateRealizationMutation()
+  const currentUser = useSelector(getUserSelector)
 
   const handleChangeStatus = async (realizationId: number, newStatus: REALIZATION_STATUS) => {
     try {
-      await updateRealization({ id: realizationId, payload: { status: newStatus } }).unwrap()
+      await updateRealization({
+        id: realizationId,
+        payload: { status: newStatus },
+      }).unwrap()
+
+      // Создаем запись о том, что этот пользователь - упаковщик данного заказа
+      if (currentUser?.id) {
+        await upsertRealizationRoleSalary(realizationId, currentUser.id, "packer")
+      }
+
       setIsFinishModalOpen(false)
     } catch {
       message.error("Ошибка при попытке отправить запрос")

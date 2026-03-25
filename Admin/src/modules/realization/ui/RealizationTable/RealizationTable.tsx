@@ -10,6 +10,8 @@ import { useState } from "react"
 import { setCurrentRealizationId, setIsOpenRealizationModal } from "../../store"
 import { MessengerIcon, ReturnToChatButton } from "@components"
 import { deriveAccountByMessenger } from "../../utils"
+import { getUserSelector } from "@modules"
+import { useSelector } from "react-redux"
 
 const humanizeSteps = (step: REALIZATION_STEPS) => {
   const textByStep: Record<REALIZATION_STEPS, string> = {
@@ -23,21 +25,22 @@ const humanizeSteps = (step: REALIZATION_STEPS) => {
 export const RealizationTable = () => {
   const [pagination, setPagination] = useState<Pagination>(DEFAULT_PAGINATION)
   const dispatch = useAppDispatch()
+  const currentUser = useSelector(getUserSelector)
 
   const handleSelectRealization = (realization_id: number) => {
     dispatch(setCurrentRealizationId(realization_id))
     dispatch(setIsOpenRealizationModal(true))
   }
 
-  const { activeRealization, total } = useGetActiveRealizationQuery(
-    { pagination },
+  const { data } = useGetActiveRealizationQuery(
+    { pagination, managerId: currentUser?.id ?? "" },
     {
-      selectFromResult: ({ data }) => ({
-        activeRealization: data?.data ?? [],
-        total: data?.total,
-      }),
+      skip: !currentUser?.id,
     },
   )
+
+  const activeRealization = data?.data ?? []
+  const total = data?.count ?? undefined
 
   const columns: ColumnProps<Realization>[] = [
     {
